@@ -14,6 +14,10 @@ constexpr short step = 1;
 constexpr height_t min_height = 1200, max_height = 3500; 
 
 int get_random_int(int a, int b);
+height_t** create_2D_table(terrain_t size_x, terrain_t size_y);
+double pythagorean(double a, double b);
+double calculate_edge_length(double x1, double y1, double z1, double x2, double y2, double z2);
+double calculate_triangle_area(double a, double b, double c);
 
 int main()
 {
@@ -22,6 +26,9 @@ int main()
     Oblicz pole powierzchni terenu, zakładając, że zakres jego wysokości wynosi [1200, 3500] (metry). 
     Tablicę wygeneruj używając funkcji rand() (#incude <stdlib>) 
     */
+
+    height_t **terrain = create_2D_table(terrain_width, terrain_length);
+
 }
 
 
@@ -53,8 +60,31 @@ height_t** create_2D_table(terrain_t size_x, terrain_t size_y)
 /*
 a - length of side a (cathetus) przyprostokątna
 b - length of side b (cathetus) przyprostokątna
+a and b should be an absulute values
 */
-double pythagorean(int a, int b)
+double pythagorean(double a, double b)
 {
-    return (double)sqrt(pow((double)abs(a), 2) + pow((double)abs(b), 2));
+    return (double)sqrt(pow(a, 2) + pow(b, 2));
+}
+
+double calculate_edge_length(double x1, double y1, double z1, double x2, double y2, double z2)
+{
+    double x_length = abs(x1-x2);
+    double y_length = abs(y1-y2);
+    double z_length = abs(z1-z2);
+
+    double d1 = pythagorean(x_length, y_length);
+    double d2 = pythagorean(z_length, d2);
+
+    return d2;
+}
+
+/*
+this function uses Heron formula
+*/
+double calculate_triangle_area(double a, double b, double c)
+{
+    double p = (a+b+c)/2;
+
+    return sqrt(p*(p-a)*(p-b)*(p-c));
 }
