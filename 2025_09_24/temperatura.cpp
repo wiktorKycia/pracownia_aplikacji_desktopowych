@@ -12,14 +12,18 @@ void print_3D_table(int*** tab, int _size_x, int _size_y, int _size_z);
 int get_random_int(int a, int b);
 double get_random_double(double a, double b);
 void print_2D_table(int **tab, int &_size_x, int &_size_y);
-double get_average_from_2D_table(int **tab, int &_size_x, int &_size_y)
+double get_average_from_2D_table(int **tab, int &_size_x, int &_size_y);
+int** extract_2D_section_1(int*** tab, int x, int &_size_y, int &_size_z);
+int** extract_2D_section_2(int*** tab, int y, int &_size_x, int &_size_z);
+int** allocate_2D_table(int &_size_x, int &_size_y);
 
 int main()
 {
     srand(time(NULL));
     setlocale(LC_ALL, "pl_PL.UTF-8");
     /*
-    Dana jest tablica 3D zawierająca próbki temperatury pobrane w pokoju o wymiarach 5 x 4 x 2.7 (metry) na regularnej siatce z krokiem 10cm. 
+    Dana jest tablica 3D zawierająca próbki temperatury pobrane w pokoju o wymiarach 5 x 4 x 2.7 (metry)
+     na regularnej siatce z krokiem 10cm. 
     Znajdź przekrój pionowy pokoju z największą średnią temperaturą. 
     Załóż, że zakres temperatury w pokoju to [18,25] stopni. 
     Tablicę wygeneruj używając funkcji rand() (#incude <stdlib>)
@@ -28,26 +32,55 @@ int main()
     int size_y = length;
     int size_z = height;
 
-    int ***pokoj = create_3D_table(size_x, size_y, size_z);
+    int ***room = create_3D_table(size_x, size_y, size_z);
 
-    double najw_srednia = 0;
-    int idx_najw_sredniej{};
+    double biggest_avg = 0;
+    int idx_of_biggest_avg{};
+    bool is_avg_for_x = true;
 
-    for(int i = 0; i < ; i++)
+
+    // najpierw iteracja po x-ach, czyli szukanie przekroju "wgłąb"
+    for(int i = 0; i < width; i++)
     {
-        int suma_i = 
-        double srednia_i = get_average_from_2D_table(pokoj[i], wys, szer);
+        int **arr = extract_2D_section_1(room, i, size_y, size_z);
+        double avg_for_i = get_average_from_2D_table(arr, size_y, size_z);
 
-        if (najw_srednia < srednia_i)
+        if (biggest_avg < avg_for_i)
         {
-            najw_srednia = srednia_i;
+            biggest_avg = avg_for_i;
+            idx_of_biggest_avg = i;
         }
-        cout << srednia_i << endl;
+        // cout << avg_for_i << endl;
     }
-    cout << "Największa średnia to: " << najw_srednia << endl;
-    print_2D_table(pokoj[idx_najw_sredniej], wys, szer);
 
+    // teraz iteracja po y-kach, czyli szukanie przekroju "wskroś" (warstwami ściennymi)
+    for(int i = 0; i < length; i++)
+    {
+        int **arr = extract_2D_section_2(room, i, size_x, size_z);
+        double avg_for_i = get_average_from_2D_table(arr, size_x, size_z);
 
+        if (biggest_avg < avg_for_i)
+        {
+            biggest_avg = avg_for_i;
+            idx_of_biggest_avg = i;
+            is_avg_for_x = false;
+        }
+        // cout << avg_for_i << endl;
+    }
+
+    cout << "Największa średnia temperratura to: " << biggest_avg << endl;
+    cout << "Przekrój z największą średnią temperaturą to: " << endl;
+
+    if(is_avg_for_x)
+    {
+        int **arr = extract_2D_section_1(room, biggest_avg, size_y, size_z);
+        print_2D_table(arr, size_y, size_z);
+    }
+    else
+    {
+        int **arr = extract_2D_section_2(room, biggest_avg, size_x, size_z);
+        print_2D_table(arr, size_x, size_z);
+    }
 
     return 0;
 }
