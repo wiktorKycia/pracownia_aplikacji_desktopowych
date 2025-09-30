@@ -50,7 +50,6 @@ int main()
             biggest_avg = avg_for_i;
             idx_of_biggest_avg = i;
         }
-        // cout << avg_for_i << endl;
     }
 
     // teraz iteracja po y-kach, czyli szukanie przekroju "wskroś" (warstwami ściennymi)
@@ -65,7 +64,6 @@ int main()
             idx_of_biggest_avg = i;
             is_avg_for_x = false;
         }
-        // cout << avg_for_i << endl;
     }
 
     cout << "Największa średnia temperratura to: " << biggest_avg << endl;
@@ -225,6 +223,6 @@ double get_average_from_2D_table(int **tab, int &_size_x, int &_size_y)
             suma += tab[j][k];
         }
     }
-    return (double)(suma/(_size_x * _size_y));
+    return (double)suma/(double)(_size_x * _size_y);
 }
 
