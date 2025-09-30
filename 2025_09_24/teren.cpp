@@ -9,9 +9,9 @@ typedef short height_t; // tu deklarujemy jakiego typu ma być wysokość
 typedef short terrain_t; // deklaracja typu wielkości terenu
 
 // data (in meters)
-constexpr terrain_t terrain_width = 5000, terrain_length = 4000; 
-constexpr short step = 1; 
-constexpr height_t min_height = 1200, max_height = 3500; 
+constexpr terrain_t terrain_width = {5000}, terrain_length = {4000}; 
+constexpr short step = {1}; 
+constexpr height_t min_height = {1200}, max_height = {3500}; 
 
 int get_random_int(int a, int b);
 height_t** create_2D_table(terrain_t size_x, terrain_t size_y);
@@ -21,6 +21,8 @@ double calculate_triangle_area(double a, double b, double c);
 
 int main()
 {
+    srand(time(NULL));
+    setlocale(LC_ALL, "pl_PL.UTF-8");
     /*
     Dana jest tablica 2D zawierająca próbki wysokości terenu o wymiarach 5 x 4 (kilometry) na regularnej siatce z krokiem 1m. 
     Oblicz pole powierzchni terenu, zakładając, że zakres jego wysokości wynosi [1200, 3500] (metry). 
@@ -28,6 +30,42 @@ int main()
     */
 
     height_t **terrain = create_2D_table(terrain_width, terrain_length);
+    double terrain_area{0};
+
+    for(terrain_t y = 0; y < terrain_length-1; y++)
+    {
+        for(terrain_t x = 0; x < terrain_width-1; x++)
+        {
+            height_t z1 = terrain[y][x];
+            height_t z2 = terrain[y][x+1];
+            height_t z3 = terrain[y+1][x+1];
+            height_t z4 = terrain[y+1][x];
+
+            double a = calculate_edge_length(x, y, z1, x+1, y, z2);
+            double b = calculate_edge_length(x+1, y, z2, x+1, y+1, z3);
+            double c = calculate_edge_length(x+1, y+1, z3, x, y+1, z4);
+            double d = calculate_edge_length(x, y+1, z4, x, y, z1);
+
+            double e1 = calculate_edge_length(x, y, z1, x+1, y+1, z3);
+            double e2 = calculate_edge_length(x, y+1, z4, x+1, y, z2);
+
+            double triangle1_area{0};
+            double traingle2_area{0};
+
+            if(e1 > e2)
+            {
+                triangle1_area = calculate_triangle_area(a, d, e2);
+                traingle2_area = calculate_triangle_area(b, c, e2);
+            }
+            else
+            {
+                triangle1_area = calculate_triangle_area(a, b, e1);
+                traingle2_area = calculate_triangle_area(c, d, e1);
+            }
+            terrain_area += triangle1_area + traingle2_area;
+        }
+    }
+    cout << "Powierzchnia terenu wynosi: " << terrain_area << " m^2";
 
 }
 
