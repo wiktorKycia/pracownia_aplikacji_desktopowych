@@ -9,8 +9,8 @@ constexpr short min_temp = 18, max_temp = 25;
 int*** create_3D_table(int _size_x, int _size_y, int _size_z);
 void print_3D_table(int*** tab, int _size_x, int _size_y, int _size_z);
 
-int randomize(int &a, int &b);
-double randomize(double &a, double &b);
+int get_random_int(int a, int b);
+double get_random_double(double a, double b);
 void print_2D_table(int **tab, int &_size_x, int &_size_y);
 double get_average_from_2D_table(int **tab, int &_size_x, int &_size_y)
 
@@ -33,7 +33,7 @@ int main()
     double najw_srednia = 0;
     int idx_najw_sredniej{};
 
-    for(int i = 0; i < dl; i++)
+    for(int i = 0; i < ; i++)
     {
         int suma_i = 
         double srednia_i = get_average_from_2D_table(pokoj[i], wys, szer);
@@ -96,7 +96,7 @@ int*** create_3D_table(int _size_x, int _size_y, int _size_z)
         {
             for(int k = 0; k < _size_x; k++)
             {
-                tab[i][j][k] = randomize(min_temp, max_temp);
+                tab[i][j][k] = get_random_int(min_temp, max_temp);
             }
         }
     }
@@ -104,18 +104,71 @@ int*** create_3D_table(int _size_x, int _size_y, int _size_z)
     return tab;
 }
 
-int randomize(int &a, int &b)
+int get_random_int(int a, int b) // nie można dać &, bo nie przyjmie typu const
 {
     int result = a + rand()%(b-a+1);
     return result;
 }
 
-double randomize(double &a, double &b)
+double get_random_double(double a, double b)
 {
     double result = a + (double)rand()/RAND_MAX * (b - a);
     return result;
 }
 
+
+/*
+tab - 3D array
+x - which x
+size_y - length of array
+size_z - height of array
+*/
+int** extract_2D_section_1(int*** tab, int x, int &_size_y, int &_size_z)
+{
+    int **extracted_table = allocate_2D_table(_size_y, _size_z);
+
+    for(int i = 0; i < _size_z; i++)
+    {
+        for(int j = 0; j < _size_y; j++)
+        {
+            extracted_table[i][j] = tab[i][j][x];
+        }
+    }
+    return extracted_table;
+}
+
+/*
+tab - 3D array
+y - which y
+size_x - width of array
+size_z - height of array
+*/
+int** extract_2D_section_2(int*** tab, int y, int &_size_x, int &_size_z)
+{
+    int **extracted_table = allocate_2D_table(_size_x, _size_z);
+
+    for(int i = 0; i < _size_z; i++)
+    {
+        for(int k = 0; k < _size_x; k++)
+        {
+            extracted_table[i][k] = tab[i][y][k];
+        }
+    }
+    return extracted_table;
+}
+
+
+
+int** allocate_2D_table(int &_size_x, int &_size_y)
+{
+    int** tab = new int*[_size_y];
+
+    for(int i = 0; i < _size_y; i++)
+    {
+        tab[i] = new int[_size_x];
+    }
+    return tab;
+}
 
 void print_2D_table(int **tab, int &_size_x, int &_size_y)
 {
