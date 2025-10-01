@@ -126,3 +126,13 @@ double calculate_triangle_area(double a, double b, double c)
 
     return sqrt(p*(p-a)*(p-b)*(p-c));
 }
+
+/*
+
+Lepsze liczenie pola trójkątów:
+
+wektor a
+wektor b
+sinus kąta między wektorami 
+
+*/
