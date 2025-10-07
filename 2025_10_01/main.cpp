@@ -51,8 +51,8 @@ void insert_at_end(Node *start, Node *new_node)
 
     temp->next = new_node;
     temp = nullptr;// reset wskaźnika, aby nie było wyspu pamięci
-    //// tu nie ma delete na końcu, bo temp jest nam potrzebny jeszcze
-    //// jak sie go usunie, to nie będzie dostępu do nowo dodanego node-a
+    // delete - usuwa obiekt pod wskaźnikiem
+    // = nullptr - resetuje wskaźnik
 }
 
 void insert_after(Node *start, Node *new_node, int index)
@@ -67,6 +67,27 @@ void insert_after(Node *start, Node *new_node, int index)
     new_node->next = temp->next;
     temp->next = new_node;
     temp = nullptr; // reset wskaźnika
+}
+
+Node remove_at_end(Node *start)
+{
+    if (start->next != nullptr) // jeśli lista jest 2 lub więcej elementowa
+    {
+        Node *temp = start;
+        while(temp->next->next != nullptr)
+        {
+            temp = temp->next;
+        }
+        Node *result = temp->next;
+        temp->next = nullptr;
+        return *result;
+    }
+    else // kiedy lista ma jeden element
+    {
+        Node *result = start;
+        start = nullptr;
+        return *result;
+    }
 }
 
 Node* get_node_ptr_at(Node *start, int index)
