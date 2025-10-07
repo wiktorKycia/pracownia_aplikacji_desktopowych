@@ -90,6 +90,30 @@ Node remove_at_end(Node *start)
     }
 }
 
+Node remove_at_start(Node *&start) // oryginalny wskaźnik
+{
+    Node *temp = start->next;
+    Node *result = start;
+    start = temp;
+    result->next = nullptr;
+    temp = nullptr;
+    return *result;
+}
+
+Node remove_after(Node *start, int index)
+{
+    Node *temp = start;
+    int i = 0;
+    while(i < index-1)
+    {
+        temp = temp->next;
+    }
+    Node *result = temp->next;
+    temp->next = temp->next->next;
+    result->next = nullptr;
+    return *result;
+}
+
 Node* get_node_ptr_at(Node *start, int index)
 {
     Node *temp = start;
