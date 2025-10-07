@@ -17,7 +17,7 @@ Rozwiązanie powinno zawierać podział kodu na pliki nagłowkowe i implementacy
 struct Node
 {
     int value;
-    Node *next;
+    Node *next = nullptr;
 };
 
 Node* create_list(int initial_first_value = 0)
@@ -104,10 +104,18 @@ Node remove_after(Node *start, int index)
 {
     Node *temp = start;
     int i = 0;
-    while(i < index-1)
+
+    while (i < index - 1 && temp != nullptr && temp->next != nullptr)
     {
         temp = temp->next;
+        i++;
     }
+
+    if (temp == nullptr || temp->next == nullptr)
+    {
+        throw std::out_of_range("Index out of range or invalid operation.");
+    }
+
     Node *result = temp->next;
     temp->next = temp->next->next;
     result->next = nullptr;
@@ -180,7 +188,31 @@ int main()
     // cout << "pointer new_node: " << &new_node << endl;
     // cout << "object new_node: "<< new_node << endl;
 
-    print_list(start);
+
+    insert_at_end(start, new Node({20}));
+    insert_at_start(start, new Node({7}));
+    insert_after(start, new Node({14}), 2);
+
+    print_list(start); // 7 12 10 14 -5 15 20
+
+    Node node1 = get_node_at(start, 4);
+    cout << endl << endl << node1.value << endl; // -5
+    
+    Node *node2_ptr = get_node_ptr_at(start, 2);
+    cout << endl << node2_ptr->value << endl; // 10
+
+    int node3 = get_value_at(start, 3);
+    cout << endl << node3 << endl; // 14
+
+    Node rm1 = remove_at_start(start);
+    cout << endl << rm1.value << endl; // 7
+
+    Node rm2 = remove_at_end(start);
+    cout << endl << rm2.value << endl; // 20
+
+    Node rm3 = remove_after(start, 2); // 14
+    cout << endl << rm3.value << endl;
+
     return 0;
 }
 
