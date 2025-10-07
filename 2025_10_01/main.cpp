@@ -40,12 +40,26 @@ void insert_at_start(Node *&start, Node *new_node) // do funkcji jako parametr s
     // cout << "object new_node: "<< new_node << endl;
 }
 
+void insert_at_end(Node *start, Node *new_node)
+{
+    Node *temp = start;
+
+    while(temp->next != nullptr) // temp->next, bo chcemy się zatrzymać na ostatnim elemencie, a nie wyjść poza i tym samym przypisywać nullptr do temp-a
+    {
+        temp = temp->next;
+    }
+
+    temp->next = new_node;
+    // tu nie ma delete na końcu, bo temp jest nam potrzebny jeszcze
+    // jak sie go usunie, to nie będzie dostępu do nowo dodanego node-a
+}
+
 void print_list(Node *start)
 {
     Node *temp = start; // wskaźnikowy temp przypisz adres obiektu, na który wskazuje start
     while(temp != nullptr)
     {
-        cout << "<Value=" << temp->value << ", Next=" << temp->next << "> \n";
+        cout << "Address: "<< temp << "  <Value=" << temp->value << ", Next=" << temp->next << "> \n";
         temp = temp->next; // do wskaźnika temp zapisz adres obiektu pod temp->next
     }
     delete temp;
@@ -60,6 +74,7 @@ int main()
     // cout << "pointer new_node: " << &new_node << endl;
     // cout << "object new_node: "<< new_node << endl;
     insert_at_start(start, new_node);
+    insert_at_end(start, new Node({15, nullptr}));
     // cout << "in main: "<<endl;
     // cout << "pointer start: " << &start << endl;
     // cout << "object start: " << start << endl;
