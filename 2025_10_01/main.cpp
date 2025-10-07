@@ -50,19 +50,36 @@ void insert_at_end(Node *start, Node *new_node)
     }
 
     temp->next = new_node;
-    // tu nie ma delete na końcu, bo temp jest nam potrzebny jeszcze
-    // jak sie go usunie, to nie będzie dostępu do nowo dodanego node-a
+    temp = nullptr;// reset wskaźnika, aby nie było wyspu pamięci
+    //// tu nie ma delete na końcu, bo temp jest nam potrzebny jeszcze
+    //// jak sie go usunie, to nie będzie dostępu do nowo dodanego node-a
+}
+
+void insert_after(Node *start, Node *new_node, int index)
+{
+    int i {0};
+    Node *temp = start;
+    while(i != index)
+    {
+        temp = temp->next;
+        i++;
+    }
+    new_node->next = temp->next;
+    temp->next = new_node;
+    temp = nullptr; // reset wskaźnika
 }
 
 void print_list(Node *start)
 {
     Node *temp = start; // wskaźnikowy temp przypisz adres obiektu, na który wskazuje start
+    int i = 0;
     while(temp != nullptr)
     {
-        cout << "Address: "<< temp << "  <Value=" << temp->value << ", Next=" << temp->next << "> \n";
+        cout << i << ": \v\tAddress: "<< temp << "  <Value=" << temp->value << ", Next=" << temp->next << "> \n";
         temp = temp->next; // do wskaźnika temp zapisz adres obiektu pod temp->next
+        i++;
     }
-    delete temp;
+    //delete temp;//*to nic nie robi, bo delete usuwa obiekt, a temp wskazuje teraz na nullptr
 }
 
 int main()
@@ -75,6 +92,7 @@ int main()
     // cout << "object new_node: "<< new_node << endl;
     insert_at_start(start, new_node);
     insert_at_end(start, new Node({15, nullptr}));
+    insert_after(start, new Node({-5, nullptr}), 1);
     // cout << "in main: "<<endl;
     // cout << "pointer start: " << &start << endl;
     // cout << "object start: " << start << endl;
