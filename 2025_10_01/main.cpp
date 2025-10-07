@@ -69,6 +69,42 @@ void insert_after(Node *start, Node *new_node, int index)
     temp = nullptr; // reset wskaźnika
 }
 
+Node* get_node_ptr_at(Node *start, int index)
+{
+    Node *temp = start;
+    int i = 0;
+    while (i != index)
+    {
+        i++;
+        temp = temp->next;
+    }
+    return temp;
+}
+
+Node get_node_at(Node *start, int index)
+{
+    Node *temp = start;
+    int i = 0;
+    while (i != index)
+    {
+        i++;
+        temp = temp->next;
+    }
+    return *temp;
+}
+
+int get_value_at(Node *start, int index)
+{
+    Node *temp = start;
+    int i = 0;
+    while (i != index)
+    {
+        temp = temp->next;
+        i++;
+    }
+    return temp->value;
+}
+
 void print_list(Node *start)
 {
     Node *temp = start; // wskaźnikowy temp przypisz adres obiektu, na który wskazuje start
