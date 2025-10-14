@@ -9,34 +9,34 @@
 
 using namespace std;
 
-#include <Windows.h>
-//#include <cstdio>
+// #include <Windows.h>
+#include <cstdio>
 
 void printIfstreamErrorFlags(ifstream& stream)
 {
 
 	//SetConsoleOutputCP(CP_UTF8); //#include <Windows.h>
 
-	cout << u8"\nWartoœci flag b³êdu strumienia: " << endl << endl;
+	cout << u8"\nWartoï¿½ci flag bï¿½ï¿½du strumienia: " << endl << endl;
 
-	cout << "goodbit: "; // brak b³êdów strumienia
+	cout << "goodbit: "; // brak bï¿½ï¿½dï¿½w strumienia
 	if (stream.rdstate() & std::ifstream::goodbit)
 		cout << 1 << endl;
 	else cout << 0 << endl;
 
-	cout << "eofbit: ";//osi¹gniêto koniec pliku w czasie czytania
+	cout << "eofbit: ";//osiï¿½gniï¿½to koniec pliku w czasie czytania
 	if (stream.rdstate() & std::ifstream::eofbit)
 		cout << 1 << endl;
 	else cout << 0 << endl;
 
 
-	cout << "faildbit: ";//jakaœ operacja we/wy nie powiod³a siê. Po wyzerowaniu tej flagi strumieñ nadal nadaje siê do pracy.
+	cout << "faildbit: ";//jakaï¿½ operacja we/wy nie powiodï¿½a siï¿½. Po wyzerowaniu tej flagi strumieï¿½ nadal nadaje siï¿½ do pracy.
 	if (stream.rdstate() & std::ifstream::failbit)
 		cout << 1 << endl;
 	else cout << 0 << endl;
 
 
-	cout << "badbit: ";//nast¹pi³ jakiœ powa¿ny b³¹d naruszaj¹cy budowê  strumienia. Dalsza praca z tym strumieniem jest niemo¿liwa.
+	cout << "badbit: ";//nastï¿½piï¿½ jakiï¿½ powaï¿½ny bï¿½ï¿½d naruszajï¿½cy budowï¿½  strumienia. Dalsza praca z tym strumieniem jest niemoï¿½liwa.
 	if (stream.rdstate() & std::ifstream::badbit)
 		cout << 1 << endl << endl;
 	else cout << 0 << endl << endl;
@@ -49,26 +49,26 @@ void printOfstreamErrorFlags(ofstream& stream)
 
 	//SetConsoleOutputCP(CP_UTF8); //#include <Windows.h>
 
-	cout << u8"\nWartoœci flag b³êdu strumienia: " << endl << endl;
+	cout << u8"\nWartoï¿½ci flag bï¿½ï¿½du strumienia: " << endl << endl;
 
-	cout << "goodbit: "; // brak b³êdów strumienia
+	cout << "goodbit: "; // brak bï¿½ï¿½dï¿½w strumienia
 	if (stream.rdstate() & std::ofstream::goodbit)
 		cout << 1 << endl;
 	else cout << 0 << endl;
 
-	cout << "eofbit: ";//osi¹gniêto koniec pliku w czasie czytania
+	cout << "eofbit: ";//osiï¿½gniï¿½to koniec pliku w czasie czytania
 	if (stream.rdstate() & std::ofstream::eofbit)
 		cout << 1 << endl;
 	else cout << 0 << endl;
 
 
-	cout << "faildbit: ";//jakaœ operacja we/wy nie powiod³a siê. Po wyzerowaniu tej flagi strumieñ nadal nadaje siê do pracy.
+	cout << "faildbit: ";//jakaï¿½ operacja we/wy nie powiodï¿½a siï¿½. Po wyzerowaniu tej flagi strumieï¿½ nadal nadaje siï¿½ do pracy.
 	if (stream.rdstate() & std::ofstream::failbit)
 		cout << 1 << endl;
 	else cout << 0 << endl;
 
 
-	cout << "badbit: ";//nast¹pi³ jakiœ powa¿ny b³¹d naruszaj¹cy budowê  strumienia. Dalsza praca z tym strumieniem jest niemo¿liwa.
+	cout << "badbit: ";//nastï¿½piï¿½ jakiï¿½ powaï¿½ny bï¿½ï¿½d naruszajï¿½cy budowï¿½  strumienia. Dalsza praca z tym strumieniem jest niemoï¿½liwa.
 	if (stream.rdstate() & std::ofstream::badbit)
 		cout << 1 << endl << endl;
 	else cout << 0 << endl << endl;
@@ -80,25 +80,25 @@ void printOfstreamErrorFlags(ofstream& stream)
 int main()
 {
 
-	SetConsoleOutputCP(CP_UTF8);
+	// SetConsoleOutputCP(CP_UTF8);
 
 	/***************************Zapis pliku tekstowego**********************************************/
 
-	//UWAGA:  w systemie Windows sekwencja koñca linii  LF w czasie zapisu zamieniana jest na CRLF
+	//UWAGA:  w systemie Windows sekwencja koï¿½ca linii  LF w czasie zapisu zamieniana jest na CRLF
 
 
 	ofstream outFile;
 
-	const char* name = "plik.txt";//typ string te¿ dzia³a w funkcji open
+	const char* name = "plik.txt";//typ string teï¿½ dziaï¿½a w funkcji open
 
 	printOfstreamErrorFlags(outFile);
 
 
 	outFile.open(name, ios::out);//otwarcie w trybie zapisu (tworzenia)
 
-	if (!outFile.good())// funkcja good() zwraca wartoœæ true je¿eli flaga goodbit jest ustawiona na 1 
+	if (!outFile.good())// funkcja good() zwraca wartoï¿½ï¿½ true jeï¿½eli flaga goodbit jest ustawiona na 1 
 	{
-		cout << u8"B³¹d otwarcia pliku: " << name << endl;// ogólny komunikat z kontekstu kodu 
+		cout << u8"Bï¿½ï¿½d otwarcia pliku: " << name << endl;// ogï¿½lny komunikat z kontekstu kodu 
 
 		printOfstreamErrorFlags(outFile);
 
@@ -107,10 +107,10 @@ int main()
 
 
 	//-----------------------------------------------------------------------------------------------------
-	//u¿ycie funkcji ostream & put(char)  
+	//uï¿½ycie funkcji ostream & put(char)  
 
 
-	string linia1 = u8"¿ó³ty";
+	string linia1 = u8"ï¿½ï¿½ty";
 	string linia2 = "linia2";
 	string linia3 = "linia3";
 
@@ -129,8 +129,8 @@ int main()
 	outFile.close();
 
 	//-------------------------------------------------------------------------------------------------[
-	//u¿ycie  operatora << 
-	outFile.open(name, ios::trunc);//otwarcie w trybie kasowania ca³ej zawartoœci (ale nie samego pliku)
+	//uï¿½ycie  operatora << 
+	outFile.open(name, ios::trunc);//otwarcie w trybie kasowania caï¿½ej zawartoï¿½ci (ale nie samego pliku)
 
 	outFile << linia1 << endl;
 	outFile << linia2 << endl;
@@ -149,7 +149,7 @@ int main()
 	ifstream inFile;
 
 	
-	//UWAGA:  w systemie Windows sekwencja koñca linii  CRLF w czasie czytania zamieniana jest na LF
+	//UWAGA:  w systemie Windows sekwencja koï¿½ca linii  CRLF w czasie czytania zamieniana jest na LF
 
 	printIfstreamErrorFlags(inFile);
 
@@ -160,9 +160,9 @@ int main()
 	printIfstreamErrorFlags(inFile);
 
 
-	if (!inFile.good())// funkcja good() zwraca wartoœæ true je¿eli flaga goodbit jest ustawiona na 1 
+	if (!inFile.good())// funkcja good() zwraca wartoï¿½ï¿½ true jeï¿½eli flaga goodbit jest ustawiona na 1 
 	{
-		cout << u8"B³¹d otwarcia pliku: " << name << endl;// ogólny komunikat z kontekstu kodu 
+		cout << u8"Bï¿½ï¿½d otwarcia pliku: " << name << endl;// ogï¿½lny komunikat z kontekstu kodu 
 
 		printIfstreamErrorFlags(inFile);
 
@@ -170,8 +170,8 @@ int main()
 	}
 
 	//-----------------------------------------------------------------------------------------------------
-	//u¿ycie funkcji 'int get()'  //nie czyta poprawnie utf8 - st¹d poni¿ej czêœæ bajtów pliku ignorujemy
-	//(ale w druku numerycznym jest ok - 2 bajty na polski znak, np. '¿' to bajty 197 188) - ¿eby to zobaczyæ zakomentuj inFile.ignore(ile_ignorujemy);
+	//uï¿½ycie funkcji 'int get()'  //nie czyta poprawnie utf8 - stï¿½d poniï¿½ej czï¿½ï¿½ bajtï¿½w pliku ignorujemy
+	//(ale w druku numerycznym jest ok - 2 bajty na polski znak, np. 'ï¿½' to bajty 197 188) - ï¿½eby to zobaczyï¿½ zakomentuj inFile.ignore(ile_ignorujemy);
 	int ile = 0;
 
 	int i;
@@ -179,12 +179,12 @@ int main()
 	int ile_ignorujemy = linia1.size() + 1;
 	inFile.ignore(ile_ignorujemy);
 
-	while (!inFile.eof())// po LF równie¿ drukuje '\n'
+	while (!inFile.eof())// po LF rï¿½wnieï¿½ drukuje '\n'
 	{
 		ile++;
 		i = inFile.get();
-		//cout << char(i) << '\n';//znakowo - jako ostatni¹ wartoœæ wydrukuje '\n',bo char(-1) nie istnieje
-		cout << i << '\n';//numerycznie - jako ostatni¹ wartoœæ wydrukuje -1 i '\n', bo get() zwróci EOF
+		//cout << char(i) << '\n';//znakowo - jako ostatniï¿½ wartoï¿½ï¿½ wydrukuje '\n',bo char(-1) nie istnieje
+		cout << i << '\n';//numerycznie - jako ostatniï¿½ wartoï¿½ï¿½ wydrukuje -1 i '\n', bo get() zwrï¿½ci EOF
 	}
 
 	bool test_eof = inFile.eof();
@@ -198,15 +198,15 @@ int main()
 
 	printIfstreamErrorFlags(inFile);
 
-	if (inFile.fail())// sprawdza czy flaga eof lub flaga failbit s¹ ustawione
+	if (inFile.fail())// sprawdza czy flaga eof lub flaga failbit sï¿½ ustawione
 		inFile.clear(inFile.rdstate() & ~(ios::eofbit | ios::failbit));
 
 	printIfstreamErrorFlags(inFile);
 
-	inFile.seekg(0, inFile.beg);//reset pozycji - nie dzia³a gdy wczeœniej osi¹gnieto  - flagi b³êdu eofbit i/lub fail s¹ ustawione 
+	inFile.seekg(0, inFile.beg);//reset pozycji - nie dziaï¿½a gdy wczeï¿½niej osiï¿½gnieto  - flagi bï¿½ï¿½du eofbit i/lub fail sï¿½ ustawione 
 
 	//--------------------------------------------------------------------------------------
-	//u¿ycie funkcji 'istream & get(typ_znaku &c)' - podobnie nie czyta poprawnie utf8
+	//uï¿½ycie funkcji 'istream & get(typ_znaku &c)' - podobnie nie czyta poprawnie utf8
 	
 
 	inFile.ignore(ile_ignorujemy);
@@ -217,29 +217,29 @@ int main()
 	while (!inFile.eof()) //koniec gdy eofbit == 1
 	{
 		ile++;
-		inFile.get(c);//tu zostanie osi¹gniêty EOF, ale wartoœæ c siê nie zmieni i w zwi¹zku z tym ostani znak by³by drukowany podwójnie bez ponizszego if
+		inFile.get(c);//tu zostanie osiï¿½gniï¿½ty EOF, ale wartoï¿½ï¿½ c siï¿½ nie zmieni i w zwiï¿½zku z tym ostani znak byï¿½by drukowany podwï¿½jnie bez ponizszego if
 
 		if (!inFile.eof())
 			cout << c << '\n';
 	}
 
 
-	if (inFile.fail())// sprawdza czy flaga eof lub flaga failbit s¹ ustawione
+	if (inFile.fail())// sprawdza czy flaga eof lub flaga failbit sï¿½ ustawione
 		inFile.clear(inFile.rdstate() & ~(ios::eofbit | ios::failbit));
 
 	inFile.seekg(0, inFile.beg);
 
 	//-----------------------------------------------------------------------------------------
-	//u¿ycie funkcji istream& get(char* gdzie , streamsize d³ugoœæ , char ogranicznik ='\n' ) 
+	//uï¿½ycie funkcji istream& get(char* gdzie , streamsize dï¿½ugoï¿½ï¿½ , char ogranicznik ='\n' ) 
 
-	char znaki[10000];//maksymalna iloœæ czytanych znaków
-	inFile.get(znaki, sizeof(znaki), EOF);// czyta maksymalnie 255 znaków, chyba ¿e wczeœniej natrafi na ogranicznik. 
-	//Ogranicznik EOF powoduje przeczytanie wszystkiego, ³¹cznie ze znakami LF	
-	cout << znaki;// znak LF jest w ci¹gu znaki
+	char znaki[10000];//maksymalna iloï¿½ï¿½ czytanych znakï¿½w
+	inFile.get(znaki, sizeof(znaki), EOF);// czyta maksymalnie 255 znakï¿½w, chyba ï¿½e wczeï¿½niej natrafi na ogranicznik. 
+	//Ogranicznik EOF powoduje przeczytanie wszystkiego, ï¿½ï¿½cznie ze znakami LF	
+	cout << znaki;// znak LF jest w ciï¿½gu znaki
 	cout << endl;//w ostatniej linii nie ma LF
 
 
-	if (inFile.fail())// sprawdza czy flaga eof lub flaga failbit s¹ ustawione
+	if (inFile.fail())// sprawdza czy flaga eof lub flaga failbit sï¿½ ustawione
 		inFile.clear(inFile.rdstate() & ~(ios::eofbit | ios::failbit));
 
 	inFile.seekg(0, inFile.beg);
@@ -247,60 +247,60 @@ int main()
 
 
 	//-------------------------------------------------------------------------------------
-	//u¿ycie funkcji istream & getline(char * gdzie , streamsize ile , char ogran = '\n');
+	//uï¿½ycie funkcji istream & getline(char * gdzie , streamsize ile , char ogran = '\n');
 
-	char linia[255];//maksymalna d³ugoœæ linii
+	char linia[255];//maksymalna dï¿½ugoï¿½ï¿½ linii
 	while (inFile.getline(linia, sizeof(linia)))// znak LF jest usuwany z linii
 		cout << linia << endl;
 
 
-	if (inFile.fail())// sprawdza czy flaga eof lub flaga failbit s¹ ustawione
+	if (inFile.fail())// sprawdza czy flaga eof lub flaga failbit sï¿½ ustawione
 		inFile.clear(inFile.rdstate() & ~(ios::eofbit | ios::failbit));
 
 	inFile.seekg(0, inFile.beg);
 
 
 	//-------------------------------------------------------------------------------------
-	//u¿ycie funkcji istream & std::getline(istream wej , string schowek , char ogranicznik = '\n');
+	//uï¿½ycie funkcji istream & std::getline(istream wej , string schowek , char ogranicznik = '\n');
 
 	string line;
 	while (getline(inFile, line))// znak LF jest usuwany z linii
 		cout << line << endl;
 
-	if (inFile.fail())// sprawdza czy flaga eof lub flaga failbit s¹ ustawione
+	if (inFile.fail())// sprawdza czy flaga eof lub flaga failbit sï¿½ ustawione
 		inFile.clear(inFile.rdstate() & ~(ios::eofbit | ios::failbit));
 
 	inFile.seekg(0, inFile.beg);
 
 
 	//-------------------------------------------------------------------------------------
-	//u¿ycie operatora >> z klasy istream
+	//uï¿½ycie operatora >> z klasy istream
 
 	string Linia;
-	while (inFile >> Linia)  // znaki LF s¹ usuwane
+	while (inFile >> Linia)  // znaki LF sï¿½ usuwane
 	{
 		cout << Linia << endl;
 	}
 
 
-	if (inFile.fail())// sprawdza czy flaga eof lub flaga failbit s¹ ustawione
+	if (inFile.fail())// sprawdza czy flaga eof lub flaga failbit sï¿½ ustawione
 		inFile.clear(inFile.rdstate() & ~(ios::eofbit | ios::failbit));
 
 	inFile.seekg(0, inFile.beg);
 
 
 	//-------------------------------------------------------------------------------------
-	//u¿ycie funkcji filebuf* rdbuf() const z klasy ifstream
+	//uï¿½ycie funkcji filebuf* rdbuf() const z klasy ifstream
 
 	ostringstream ss;
-	ss << inFile.rdbuf(); // wczytanie ca³ego pliku ze znakami LF
+	ss << inFile.rdbuf(); // wczytanie caï¿½ego pliku ze znakami LF
 	string linie = ss.str();//konwersja na jeden string
 	cout << linie;
 	cout << endl;//ostatnia linia nie ma LF
 
 
 	//-------------------------------------------------------------------------------------
-	//u¿ycie funkcji read i vector<::byte> C++17
+	//uï¿½ycie funkcji read i vector<::byte> C++17
 
 
 	auto endPos = inFile.tellg();
@@ -339,9 +339,9 @@ int main()
 
 	double d{ 13.14322872 };
 	int n{ 10034 };
-	string txt{ u8"chsz¹szcz brzmi w trzcinie" };
-	string komunikat{ u8"W szczêkach\n chrz¹szcza\n trzeszczy mi¹¿sz," };
-	Osoba osoba{ u8"Pawe³", u8"Œmie³owski", 30, 186.5 };
+	string txt{ u8"chszï¿½szcz brzmi w trzcinie" };
+	string komunikat{ u8"W szczï¿½kach\n chrzï¿½szcza\n trzeszczy miï¿½ï¿½sz," };
+	Osoba osoba{ u8"Paweï¿½", u8"ï¿½mieï¿½owski", 30, 186.5 };
 
 	outFileB.write((char*)&d, sizeof(double));
 	outFileB.write((char*)&n, sizeof(int));
@@ -373,7 +373,7 @@ int main()
 	//zmienne do wczytania danych
 
 	//-------------------------------------------------------------------------------------------------------
-	//u¿ycie u¿ycie funkcji istream & read(char* gdzie , streamsize ile ); 
+	//uï¿½ycie uï¿½ycie funkcji istream & read(char* gdzie , streamsize ile ); 
 
 	double D;
 	int N, DLUGOSC_TXT, DLUGOSC_KOM;
@@ -402,12 +402,12 @@ int main()
 	printIfstreamErrorFlags(inFileB);
 
 
-	if (inFile.fail())// sprawdza czy flaga eof lub flaga failbit s¹ ustawione
+	if (inFile.fail())// sprawdza czy flaga eof lub flaga failbit sï¿½ ustawione
 		inFile.clear(inFile.rdstate() & ~(ios::eofbit | ios::failbit));
 
 
 	//-------------------------------------------------------------------------------------------------------
-	//u¿ycie vector<byte> 
+	//uï¿½ycie vector<byte> 
 
 	auto end = inFileB.tellg();
 	inFileB.seekg(0, inFile.beg);
