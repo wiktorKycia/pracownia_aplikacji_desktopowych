@@ -21,3 +21,29 @@ class nazwa
     ewentualnie dodatkowe metody
     
 }
+
+
+==================
+
+grafy z wagami
+bardziej matematyczny projekt - wyświetlanie mapy (wyniku)
+
+program deterministyczny
+
+algorytmy routingu 
+bazy osm - do miast
+
+potrzeba danych historycznych (jak było przeciętnie w roku) lub algorytmów 
+
+dla krajowych dróg
+
+skupić sie na programowaniu, a nie na matmie
+==================
+
+proste symulacje fizyczne
+pytać się kowalewskiego o dodatkowe spotkania
+
+obiekt, który ma masę, ale nie ma wymiarów (jest punktem w przestrzeni)
+
+rzut piłką
+symulacja ruchu cząsteczek w polu magnetycznym
