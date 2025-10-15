@@ -1,0 +1,23 @@
+konwerter z wszystkich na wszystkie
+zrobić to samo co Janek, tylko w klasach
+
+
+class nazwa
+{
+    uint sizex, sizey;
+    Enum typ;
+    uint8**
+
+    konstruktory:
+    -domyślny
+    -główny
+    -kopiujący - napisać ręcznie
+
+    gettery i settery
+    -przemyślane: np. nie dla rozmiaru obrazu
+
+    12 funkcji do odczytu i zapisu
+
+    ewentualnie dodatkowe metody
+    
+}
