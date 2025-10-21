@@ -65,7 +65,7 @@ void PortableGrayMapASCII::allocate_pixels()
     {
         this->pixels[i] = new u_int8_t[sizex];
 
-        for(unsigned int j = 0; i < sizex; j++)
+        for(unsigned int j = 0; j < sizex; j++)
         {
             this->pixels[i][j] = {0};
         }
