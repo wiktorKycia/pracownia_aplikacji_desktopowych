@@ -54,6 +54,7 @@ class PortablePixMapASCII
         return this->pixels[y][x][color];
     }
     void readFile(string fileName);
+    void writeFile(string fileName);
 };
 
 void PortablePixMapASCII::readFile(string fileName)
@@ -108,6 +109,37 @@ void PortablePixMapASCII::readFile(string fileName)
 
     file.close();
 }
+void PortablePixMapASCII::writeFile(string fileName)
+{
+    ofstream file;
+    file.open(fileName, ios::out | ios::trunc);
+
+    if(!file.good())
+    {
+        cout << "Error opening file: " << fileName << endl;
+        exit(1);
+    }
+
+    file << "P3" << endl; // nagłówek
+    file << "# Created with C++" << endl; // komentarz
+    file << this->sizex << " " << this->sizey << endl; // rozmiary szer i wys
+    file << "255" << endl; // max color
+
+    for(unsigned int i = 0; i < sizey; i++)
+    {
+        for(unsigned int j = 0; j < sizex; j++)
+        {
+            for(int color; color < this->numberOfColors; color++)
+            {
+                file << this->pixels[i][j][color] << endl;
+            }
+        }
+    }
+
+    file.close();
+}
+
+
 class PortablePixMap{};
 class PortableGrayMapASCII{};
 class PortableGrayMap{};
