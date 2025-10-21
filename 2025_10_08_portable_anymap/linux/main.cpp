@@ -107,6 +107,8 @@ void PortablePixMapASCII::readFile(string fileName)
     this->sizex = stoi(line.substr(0, idx_space));
     this->sizey = stoi(line.substr(idx_space+1));
     cout << "sizex = " << this->sizex << endl << "sizey = " << this->sizey << endl;
+    // cout << "Type of sizex: " << typeid(this->sizex).name() << endl; // prints: j
+    // cout << "Type of sizey: " << typeid(this->sizey).name() << endl; // prints: j
 
     getline(file, line); // upewnij się, że max color to 255
 
@@ -124,12 +126,13 @@ void PortablePixMapASCII::readFile(string fileName)
     {
         for(unsigned int j = 0; j < sizex; j++)
         {
-            for(int color; color < this->numberOfColors; color++)
+            for(int color = 0; color < this->numberOfColors; color++)
             {
+                // cout << i << ' '<< j << ' ' << color<< endl;
                 string value;
                 file >> value;
                 this->pixels[i][j][color] = stoi(value);
-                // cout << value << "\t" << this->pixels[i][j][color] << endl;
+                // cout << value << "\t" << stoi(value)<< "\t" << this->pixels[i][j][color] << endl;
             }
         }
     }
@@ -158,9 +161,9 @@ void PortablePixMapASCII::writeFile(string fileName)
     {
         for(unsigned int j = 0; j < sizex; j++)
         {
-            for(int color; color < this->numberOfColors; color++)
+            for(int color = 0; color < this->numberOfColors; color++)
             {
-                cout << static_cast<int>(this->pixels[i][j][color]) << endl;
+                // cout << static_cast<int>(this->pixels[i][j][color]) << endl;
                 file << static_cast<int>(this->pixels[i][j][color]) << endl;
             }
         }
