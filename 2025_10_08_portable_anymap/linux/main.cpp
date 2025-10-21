@@ -59,7 +59,9 @@ class PortablePixMapASCII
         return this->pixels[y][x][color];
     }
     void readFile(string fileName);
-    void writeFile(string fileName);
+    void writeFilePPM(string fileName);
+    void writeFilePGM(string fileName);
+    void writeFilePBM(string fileName);
 };
 
 void PortablePixMapASCII::allocate_pixels()
@@ -139,7 +141,7 @@ void PortablePixMapASCII::readFile(string fileName)
 
     file.close();
 }
-void PortablePixMapASCII::writeFile(string fileName)
+void PortablePixMapASCII::writeFilePPM(string fileName)
 {
     ofstream file;
     file.open(fileName, ios::out | ios::trunc);
@@ -171,7 +173,46 @@ void PortablePixMapASCII::writeFile(string fileName)
 
     file.close();
 }
-class PortablePixMap{};
+void PortablePixMapASCII::writeFilePGM(string fileName)
+{
+    ofstream file;
+    file.open(fileName, ios::out | ios::trunc);
+
+    if(!file.good())
+    {
+        cout << "Error opening file: " << fileName << endl;
+        exit(1);
+    }
+
+    file << "P2" << endl; // nagłówek
+    file << "# Created with C++" << endl; // komentarz
+    file << this->sizex << " " << this->sizey << endl; // rozmiary szer i wys
+    file << "255" << endl; // max color
+
+    cout << "zaczynam zapisywać dane" << endl;
+
+    for(unsigned int i = 0; i < sizey; i++)
+    {
+        for(unsigned int j = 0; j < sizex; j++)
+        {
+            int sum = 0;
+            for(int color = 0; color < this->numberOfColors; color++)
+            {
+                // cout << static_cast<int>(this->pixels[i][j][color]) << endl;
+                sum += static_cast<int>(this->pixels[i][j][color]);
+            }
+            file << (int)(sum/3) << endl;
+        }
+    }
+
+    file.close();
+}
+void PortablePixMapASCII::writeFilePBM(string fileName)
+{
+}
+class PortablePixMap
+{
+};
 
 /*
 PGM (P2)
@@ -192,6 +233,7 @@ int main()
     setlocale(LC_ALL, "pl_PL.UTF-8");
     PortablePixMapASCII ppm;
     ppm.readFile("wol.ppm");
-    ppm.writeFile("output.ppm");
+    ppm.writeFilePPM("output.ppm");
+    ppm.writeFilePGM("output.pgm");
     return 0;
 }
