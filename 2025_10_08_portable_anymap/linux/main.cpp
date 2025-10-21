@@ -108,7 +108,7 @@ void PortablePixMapASCII::readFile(string fileName)
     int idx_space = line.find(' ');
     this->sizex = stoi(line.substr(0, idx_space));
     this->sizey = stoi(line.substr(idx_space+1));
-    cout << "sizex = " << this->sizex << endl << "sizey = " << this->sizey << endl;
+    // cout << "sizex = " << this->sizex << endl << "sizey = " << this->sizey << endl;
     // cout << "Type of sizex: " << typeid(this->sizex).name() << endl; // prints: j
     // cout << "Type of sizey: " << typeid(this->sizey).name() << endl; // prints: j
 
@@ -222,7 +222,7 @@ void PortablePixMapASCII::writeFilePBM(string fileName)
     file << this->sizex << " " << this->sizey << endl; // rozmiary szer i wys
     // file << "255" << endl; // max color
 
-    cout << "zaczynam zapisywać dane" << endl;
+    // cout << "zaczynam zapisywać dane" << endl;
 
     // basic quantization: sum up all the colors and calculate the average
     unsigned long long sum = 0;
@@ -238,6 +238,7 @@ void PortablePixMapASCII::writeFilePBM(string fileName)
         }
     }
     int avg = (sum)/(sizex*sizey*numberOfColors);
+    cout << avg << endl;
 
 
     for(unsigned int i = 0; i < sizey; i++)
