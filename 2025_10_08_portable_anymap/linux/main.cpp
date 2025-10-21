@@ -198,7 +198,6 @@ void PortablePixMapASCII::writeFilePGM(string fileName)
             int sum = 0;
             for(int color = 0; color < this->numberOfColors; color++)
             {
-                // cout << static_cast<int>(this->pixels[i][j][color]) << endl;
                 sum += static_cast<int>(this->pixels[i][j][color]);
             }
             file << (int)(sum/3) << endl;
@@ -209,6 +208,58 @@ void PortablePixMapASCII::writeFilePGM(string fileName)
 }
 void PortablePixMapASCII::writeFilePBM(string fileName)
 {
+    ofstream file;
+    file.open(fileName, ios::out | ios::trunc);
+
+    if(!file.good())
+    {
+        cout << "Error opening file: " << fileName << endl;
+        exit(1);
+    }
+
+    file << "P1" << endl; // nagłówek
+    file << "# Created with C++" << endl; // komentarz
+    file << this->sizex << " " << this->sizey << endl; // rozmiary szer i wys
+    // file << "255" << endl; // max color
+
+    cout << "zaczynam zapisywać dane" << endl;
+
+    // basic quantization: sum up all the colors and calculate the average
+    unsigned long long sum = 0;
+    for(unsigned int i = 0; i < sizey; i++)
+    {
+        for(unsigned int j = 0; j < sizex; j++)
+        {
+            for(int color = 0; color < this->numberOfColors; color++)
+            {
+                sum += static_cast<int>(this->pixels[i][j][color]);
+            }
+            // file << (int)(sum/3) << endl;
+        }
+    }
+    int avg = (sum)/(sizex*sizey*numberOfColors);
+
+
+    for(unsigned int i = 0; i < sizey; i++)
+    {
+        for(unsigned int j = 0; j < sizex; j++)
+        {
+            int sum_local = 0;
+            for(int color = 0; color < this->numberOfColors; color++)
+            {
+                sum_local += static_cast<int>(this->pixels[i][j][color]);
+            }
+            if (sum_local > avg)
+            {
+                file << 0 << endl;
+            }
+            else
+            {
+                file << 1 << endl;
+            }
+        }
+    }
+    file.close();
 }
 class PortablePixMap
 {
@@ -235,5 +286,6 @@ int main()
     ppm.readFile("wol.ppm");
     ppm.writeFilePPM("output.ppm");
     ppm.writeFilePGM("output.pgm");
+    ppm.writeFilePBM("output.pbm");
     return 0;
 }
