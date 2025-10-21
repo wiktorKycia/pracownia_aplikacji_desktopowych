@@ -11,23 +11,22 @@ class PortablePixMapASCII
     static const int numberOfColors = {3};
     unsigned int sizex, sizey;
     u_int8_t ***pixels;
+
+    void allocate_pixels();
     
     public:
+
+    PortablePixMapASCII()
+    {
+        sizex = 0;
+        sizey = 0;
+        pixels = nullptr;
+    }
     PortablePixMapASCII(unsigned int _sizex, unsigned int _sizey)
     {
         sizex = _sizex;
         sizey = _sizey;
-        pixels = new u_int8_t**[sizey];
-
-        for(unsigned int i = 0; i < sizey; i++)
-        {
-            pixels[i] = new u_int8_t*[sizex];
-
-            for(unsigned int j = 0; j < sizex; j++)
-            {
-                pixels[i][j] = new u_int8_t[numberOfColors]{0,0,0};
-            }
-        }
+        this->allocate_pixels();
     }
     PortablePixMapASCII(const PortablePixMapASCII &obj)
     {
@@ -49,6 +48,12 @@ class PortablePixMapASCII
             }
         }
     }
+    ~PortablePixMapASCII()
+    {
+        sizex = 0;
+        sizey = 0;
+        delete pixels;
+    }
     u_int8_t getPixel(unsigned int x, unsigned int y, unsigned int color) const
     {
         return this->pixels[y][x][color];
@@ -56,6 +61,21 @@ class PortablePixMapASCII
     void readFile(string fileName);
     void writeFile(string fileName);
 };
+
+void PortablePixMapASCII::allocate_pixels()
+{
+    this->pixels = new u_int8_t**[this->sizey];
+
+    for(unsigned int i = 0; i < this->sizey; i++)
+    {
+        this->pixels[i] = new u_int8_t*[this->sizex];
+
+        for(unsigned int j = 0; j < this->sizex; j++)
+        {
+            this->pixels[i][j] = new u_int8_t[numberOfColors]{0,0,0};
+        }
+    }
+}
 
 void PortablePixMapASCII::readFile(string fileName)
 {
@@ -95,14 +115,21 @@ void PortablePixMapASCII::readFile(string fileName)
         cout << "Maximum color value does not equal 255" << endl;
     }
 
+    if(this->pixels == nullptr)
+    {
+        this->allocate_pixels();
+    }
+
     for(unsigned int i = 0; i < sizey; i++)
     {
         for(unsigned int j = 0; j < sizex; j++)
         {
             for(int color; color < this->numberOfColors; color++)
             {
-                getline(file, line);
-                this->pixels[i][j][color] = stoi(line);
+                string value;
+                file >> value;
+                this->pixels[i][j][color] = stoi(value);
+                // cout << value << "\t" << this->pixels[i][j][color] << endl;
             }
         }
     }
@@ -125,13 +152,16 @@ void PortablePixMapASCII::writeFile(string fileName)
     file << this->sizex << " " << this->sizey << endl; // rozmiary szer i wys
     file << "255" << endl; // max color
 
+    cout << "zaczynam zapisywać dane" << endl;
+
     for(unsigned int i = 0; i < sizey; i++)
     {
         for(unsigned int j = 0; j < sizex; j++)
         {
             for(int color; color < this->numberOfColors; color++)
             {
-                file << this->pixels[i][j][color] << endl;
+                cout << static_cast<int>(this->pixels[i][j][color]) << endl;
+                file << static_cast<int>(this->pixels[i][j][color]) << endl;
             }
         }
     }
@@ -151,6 +181,9 @@ class PortableBitMap{};
 
 int main()
 {
-    
+    setlocale(LC_ALL, "pl_PL.UTF-8");
+    PortablePixMapASCII ppm;
+    ppm.readFile("wol.ppm");
+    ppm.writeFile("output.ppm");
     return 0;
 }
