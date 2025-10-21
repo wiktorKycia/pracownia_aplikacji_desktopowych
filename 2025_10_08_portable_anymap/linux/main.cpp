@@ -171,10 +171,15 @@ void PortablePixMapASCII::writeFile(string fileName)
 
     file.close();
 }
-
-
 class PortablePixMap{};
-class PortableGrayMapASCII{};
+
+/*
+PGM (P2)
+*/
+class PortableGrayMapASCII
+{
+
+};
 class PortableGrayMap{};
 class PortableBitMapASCII{};
 class PortableBitMap{};
