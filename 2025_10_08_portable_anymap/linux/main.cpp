@@ -1,5 +1,6 @@
 #include<iostream>
-
+#include<fstream>
+#include<string>
 using namespace std;
 
 /*
@@ -52,7 +53,61 @@ class PortablePixMapASCII
     {
         return this->pixels[y][x][color];
     }
+    void readFile(string fileName);
 };
+
+void PortablePixMapASCII::readFile(string fileName)
+{
+    ifstream file;
+    file.open(fileName, ios::in);
+
+    if(!file.good())
+    {
+        cout << "Error reading file: " << fileName << endl;
+        exit(1);
+    }
+
+    string line;
+
+    getline(file, line); // pierwsza linia
+    
+    if(line != "P3")
+    {
+        cout << "The file is not a ppm format!" << endl;
+    }
+    getline(file, line); // linia z komentarzem
+
+    if (line[0] == '#') // jeśli ta linia ma komentarz, to przeczytaj następną
+    {
+        getline(file, line);
+    }
+    // wczytaj szer i wys
+    int idx_space = line.find(' ');
+    this->sizex = stoi(line.substr(0, idx_space));
+    this->sizey = stoi(line.substr(idx_space+1));
+    cout << "sizex = " << this->sizex << endl << "sizey = " << this->sizey << endl;
+
+    getline(file, line); // upewnij się, że max color to 255
+
+    if(line != "255")
+    {
+        cout << "Maximum color value does not equal 255" << endl;
+    }
+
+    for(unsigned int i = 0; i < sizey; i++)
+    {
+        for(unsigned int j = 0; j < sizex; j++)
+        {
+            for(int color; color < this->numberOfColors; color++)
+            {
+                getline(file, line);
+                this->pixels[i][j][color] = stoi(line);
+            }
+        }
+    }
+
+    file.close();
+}
 class PortablePixMap{};
 class PortableGrayMapASCII{};
 class PortableGrayMap{};
