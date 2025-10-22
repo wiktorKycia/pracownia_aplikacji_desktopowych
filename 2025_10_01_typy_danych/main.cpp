@@ -188,13 +188,98 @@ int main()
     bool running = true;
     do
     {
+        cout << endl;
+        print_list_simpler(start);
+        cout << endl << endl;
         cout << "===== Wybierz opcję =====" << endl;
-        cout << "Dodaj na początek" << endl;
-        cout << "Dodaj na koniec" << endl;
-        cout << "Dodaj po ..." << endl;
+        cout << "1. Dodaj na początek" << endl;
+        cout << "2. Dodaj na koniec" << endl;
+        cout << "3. Dodaj po ..." << endl;
 
-        cout << ""
+        cout << "4. Usuń z początku" << endl;
+        cout << "5. Usuń z końca" << endl;
+        cout << "6. Usuń po ..." << endl;
 
+        cout << "7. Pobierz wartość z indeksu ..." << endl;
+        cout << "8. wyjdź" << endl;
+        cout << "=========================" << endl;
+        int choice;
+        cin >> choice;
+
+        switch (choice)
+        {
+            case 1:
+            {
+                int value;
+                cout << "Wpisz wartość: ";
+                cin >> value;
+
+                insert_at_start(start, new Node{value});
+                break;
+            }
+            case 2:
+            {
+                int value;
+                cout << "Wpisz wartość: ";
+                cin >> value;
+
+                insert_at_end(start, new Node{value});
+                break;
+            }
+            case 3:
+            {
+                int value, index;
+                cout << "Podaj numer indeksu: ";
+                cin >> index;
+
+                cout << "Wpisz wartość: ";
+                cin >> value;
+
+                insert_after(start, new Node{value}, index);
+                break;
+            }
+            case 4:
+            {
+                remove_at_start(start);
+                break;
+            }
+            case 5:
+            {
+                remove_at_end(start);
+                break;
+            }
+            case 6:
+            {
+                int index;
+                cout << "Podaj indeks: ";
+                cin >> index;
+
+                remove_after(start, index);
+                break;
+            }
+            case 7:
+            {
+                int index;
+                cout << "Podaj indeks: ";
+                cin >> index;
+
+                int value = get_value_at(start, index);
+                cout << "Wartość pod indeksem " << index << " to " << value << endl;
+                getchar();
+                break;
+            }
+            case 8:
+            {
+                exit(0);
+            }
+            default:
+            {
+                cout << "Nie ma takiej opcji! spróbuj ponownie!" << endl;
+                getchar();
+                break;
+            }
+        }
+        system("clear");
     } while (running);
     
     /*
