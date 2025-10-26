@@ -2,7 +2,7 @@
 #include<fstream>
 #include<string>
 #include<cstdint>
-#include "functions.cpp"
+#include "functions.hpp"
 using namespace std;
 
 /*

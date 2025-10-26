@@ -3,6 +3,7 @@
 #include<string>
 #include "ppm_ascii.cpp"
 #include "pgm_ascii.cpp"
+#include "functions.hpp"
 
 using namespace std;
 
@@ -24,19 +25,20 @@ int main()
 {
     setlocale(LC_ALL, "pl_PL.UTF-8");
 
+    // cout << static_cast<int>(pixel_functions::enlighten(150));
 
     PortablePixMapASCII ppm;
-    
+
     ppm.readFile("input.ppm");
     ppm.convert_to_negative();
     ppm.writeFilePPM("./output_images/negative.ppm");
 
     ppm.readFile("input.ppm");
-    ppm.enlighten();
+    ppm.enlighten(4.0);
     ppm.writeFilePPM("./output_images/light.ppm");
 
     ppm.readFile("input.ppm");
-    ppm.darken();
+    ppm.darken(4.0);
     ppm.writeFilePPM("./output_images/dark.ppm");
 
     ppm.readFile("input.ppm");
@@ -44,7 +46,7 @@ int main()
     ppm.writeFilePPM("./output_images/contrast.ppm");
 
     ppm.readFile("input.ppm");
-    ppm.decontrast();
+    ppm.decontrast(20.0);
     ppm.writeFilePPM("./output_images/decontrast.ppm");
 
     // ppm.writeFilePPM("output.ppm");
