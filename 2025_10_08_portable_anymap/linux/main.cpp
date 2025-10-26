@@ -29,25 +29,25 @@ int main()
 
     PortablePixMapASCII ppm;
 
-    ppm.readFile("input.ppm");
-    ppm.convert_to_negative();
-    ppm.writeFilePPM("./output_images/negative.ppm");
+    // ppm.readFile("input.ppm");
+    // ppm.convert_to_negative();
+    // ppm.writeFilePPM("./output_images/negative.ppm");
+
+    // ppm.readFile("input.ppm");
+    // ppm.enlighten(4.0);
+    // ppm.writeFilePPM("./output_images/light.ppm");
+
+    // ppm.readFile("input.ppm");
+    // ppm.darken(4.0);
+    // ppm.writeFilePPM("./output_images/dark.ppm");
 
     ppm.readFile("input.ppm");
-    ppm.enlighten(4.0);
-    ppm.writeFilePPM("./output_images/light.ppm");
-
-    ppm.readFile("input.ppm");
-    ppm.darken(4.0);
-    ppm.writeFilePPM("./output_images/dark.ppm");
-
-    ppm.readFile("input.ppm");
-    ppm.contrast();
+    ppm.contrast(0.5);
     ppm.writeFilePPM("./output_images/contrast.ppm");
 
-    ppm.readFile("input.ppm");
-    ppm.decontrast(20.0);
-    ppm.writeFilePPM("./output_images/decontrast.ppm");
+    // ppm.readFile("input.ppm");
+    // ppm.decontrast(20.0);
+    // ppm.writeFilePPM("./output_images/decontrast.ppm");
 
     // ppm.writeFilePPM("output.ppm");
     // ppm.writeFilePGM("output.pgm");
