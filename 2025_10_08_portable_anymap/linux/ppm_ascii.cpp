@@ -2,6 +2,7 @@
 #include<fstream>
 #include<string>
 #include<cstdint>
+#include "functions.cpp"
 using namespace std;
 
 /*
@@ -63,6 +64,11 @@ class PortablePixMapASCII
     void writeFilePPM(string fileName);
     void writeFilePGM(string fileName);
     void writeFilePBM(string fileName);
+    void convert_to_negative();
+    void enlighten(double a);
+    void darken(double a);
+    void contrast(double a);
+    void decontrast(double a);
 };
 
 void PortablePixMapASCII::allocate_pixels()
@@ -262,4 +268,69 @@ void PortablePixMapASCII::writeFilePBM(string fileName)
         }
     }
     file.close();
+}
+void PortablePixMapASCII::convert_to_negative()
+{
+    for(unsigned int i = 0; i < this->sizey; i++)
+    {
+        for(unsigned int j = 0; j < this->sizex; j++)
+        {
+            for(uint8_t color = 0; color < this->numberOfColors; color++)
+            {
+                this->pixels[i][j][color] = pixel_functions::negativ(this->pixels[i][j][color]);
+            }
+        }
+    }
+}
+void PortablePixMapASCII::enlighten(double a)
+{
+    for(unsigned int i = 0; i < this->sizey; i++)
+    {
+        for(unsigned int j = 0; j < this->sizex; j++)
+        {
+            for(uint8_t color = 0; color < this->numberOfColors; color++)
+            {
+                this->pixels[i][j][color] = pixel_functions::enlighten(this->pixels[i][j][color], a);
+            }
+        }
+    }
+}
+void PortablePixMapASCII::darken(double a)
+{
+    for(unsigned int i = 0; i < this->sizey; i++)
+    {
+        for(unsigned int j = 0; j < this->sizex; j++)
+        {
+            for(uint8_t color = 0; color < this->numberOfColors; color++)
+            {
+                this->pixels[i][j][color] = pixel_functions::darken(this->pixels[i][j][color], a);
+            }
+        }
+    }
+}
+void PortablePixMapASCII::contrast(double a)
+{
+    for(unsigned int i = 0; i < this->sizey; i++)
+    {
+        for(unsigned int j = 0; j < this->sizex; j++)
+        {
+            for(uint8_t color = 0; color < this->numberOfColors; color++)
+            {
+                this->pixels[i][j][color] = pixel_functions::contrast(this->pixels[i][j][color], a);
+            }
+        }
+    }
+}
+void PortablePixMapASCII::decontrast(double a)
+{
+    for(unsigned int i = 0; i < this->sizey; i++)
+    {
+        for(unsigned int j = 0; j < this->sizex; j++)
+        {
+            for(uint8_t color = 0; color < this->numberOfColors; color++)
+            {
+                this->pixels[i][j][color] = pixel_functions::decontrast(this->pixels[i][j][color], a);
+            }
+        }
+    }
 }
