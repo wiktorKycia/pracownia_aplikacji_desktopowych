@@ -1,6 +1,7 @@
 #include<iostream>
 #include<fstream>
 #include<string>
+#include<cstdint>
 using namespace std;
 
 /*
@@ -10,7 +11,7 @@ class PortablePixMapASCII
 {
     static const int numberOfColors = {3};
     unsigned int sizex, sizey;
-    u_int8_t ***pixels;
+    uint8_t ***pixels;
 
     void allocate_pixels();
     
@@ -32,15 +33,15 @@ class PortablePixMapASCII
     {
         sizex = obj.sizex;
         sizey = obj.sizey;
-        pixels = new u_int8_t**[sizey];
+        pixels = new uint8_t**[sizey];
 
         for(unsigned int i = 0; i < sizey; i++)
         {
-            pixels[i] = new u_int8_t*[sizex];
+            pixels[i] = new uint8_t*[sizex];
 
             for(unsigned int j = 0; j < sizex; j++)
             {
-                pixels[i][j] = new u_int8_t[numberOfColors]{
+                pixels[i][j] = new uint8_t[numberOfColors]{
                     obj.getPixel(i, j, 0),
                     obj.getPixel(i, j, 1),
                     obj.getPixel(i, j, 2)
@@ -54,7 +55,7 @@ class PortablePixMapASCII
         sizey = 0;
         delete pixels;
     }
-    u_int8_t getPixel(unsigned int x, unsigned int y, unsigned int color) const
+    uint8_t getPixel(unsigned int x, unsigned int y, unsigned int color) const
     {
         return this->pixels[y][x][color];
     }
@@ -66,15 +67,15 @@ class PortablePixMapASCII
 
 void PortablePixMapASCII::allocate_pixels()
 {
-    this->pixels = new u_int8_t**[this->sizey];
+    this->pixels = new uint8_t**[this->sizey];
 
     for(unsigned int i = 0; i < this->sizey; i++)
     {
-        this->pixels[i] = new u_int8_t*[this->sizex];
+        this->pixels[i] = new uint8_t*[this->sizex];
 
         for(unsigned int j = 0; j < this->sizex; j++)
         {
-            this->pixels[i][j] = new u_int8_t[numberOfColors]{0,0,0};
+            this->pixels[i][j] = new uint8_t[numberOfColors]{0,0,0};
         }
     }
 }

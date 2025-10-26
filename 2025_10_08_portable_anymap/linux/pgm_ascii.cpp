@@ -1,6 +1,7 @@
 #include<iostream>
 #include<fstream>
 #include<string>
+#include<cstdint>
 using namespace std;
 
 /*
@@ -9,7 +10,7 @@ PGM (P2)
 class PortableGrayMapASCII
 {
     unsigned int sizex, sizey;
-    u_int8_t **pixels;
+    uint8_t **pixels;
     void allocate_pixels();
 
     public:
@@ -30,11 +31,11 @@ class PortableGrayMapASCII
     {
         sizex = obj.sizex;
         sizey = obj.sizey;
-        pixels = new u_int8_t*[sizey];
+        pixels = new uint8_t*[sizey];
 
         for(unsigned int i = 0; i < sizey; i++)
         {
-            pixels[i] = new u_int8_t[sizex];
+            pixels[i] = new uint8_t[sizex];
 
             for(unsigned int j = 0; j < sizex; j++)
             {
@@ -48,7 +49,7 @@ class PortableGrayMapASCII
         sizey = 0;
         delete pixels;
     }
-    u_int8_t getPixel(unsigned int x, unsigned int y) const
+    uint8_t getPixel(unsigned int x, unsigned int y) const
     {
         return this->pixels[y][x];
     }
@@ -59,11 +60,11 @@ class PortableGrayMapASCII
 };
 void PortableGrayMapASCII::allocate_pixels()
 {
-    this->pixels = new u_int8_t*[sizey];
+    this->pixels = new uint8_t*[sizey];
 
     for(unsigned int i = 0; i < sizey; i++)
     {
-        this->pixels[i] = new u_int8_t[sizex];
+        this->pixels[i] = new uint8_t[sizex];
 
         for(unsigned int j = 0; j < sizex; j++)
         {

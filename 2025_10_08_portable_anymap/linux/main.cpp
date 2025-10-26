@@ -31,11 +31,11 @@ int main()
     // ppm.writeFilePGM("output.pgm");
     // ppm.writeFilePBM("output.pbm");
 
-    PortableGrayMapASCII pgm;
-    pgm.readFile("output.pgm");
-    pgm.writeFilePPM("output-from-pgm.ppm");
-    pgm.writeFilePGM("pgm-to-pgm.pgm");
-    pgm.writeFilePBM("pgm-to-pbm.pbm");
+    // PortableGrayMapASCII pgm;
+    // pgm.readFile("output.pgm");
+    // pgm.writeFilePPM("output-from-pgm.ppm");
+    // pgm.writeFilePGM("pgm-to-pgm.pgm");
+    // pgm.writeFilePBM("pgm-to-pbm.pbm");
 
 
     return 0;
