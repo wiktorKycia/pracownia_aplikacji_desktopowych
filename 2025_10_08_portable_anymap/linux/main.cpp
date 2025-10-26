@@ -25,8 +25,28 @@ int main()
     setlocale(LC_ALL, "pl_PL.UTF-8");
 
 
-    // PortablePixMapASCII ppm;
-    // ppm.readFile("wol.ppm");
+    PortablePixMapASCII ppm;
+    
+    ppm.readFile("input.ppm");
+    ppm.convert_to_negative();
+    ppm.writeFilePPM("./output_images/negative.ppm");
+
+    ppm.readFile("input.ppm");
+    ppm.enlighten();
+    ppm.writeFilePPM("./output_images/light.ppm");
+
+    ppm.readFile("input.ppm");
+    ppm.darken();
+    ppm.writeFilePPM("./output_images/dark.ppm");
+
+    ppm.readFile("input.ppm");
+    ppm.contrast();
+    ppm.writeFilePPM("./output_images/contrast.ppm");
+
+    ppm.readFile("input.ppm");
+    ppm.decontrast();
+    ppm.writeFilePPM("./output_images/decontrast.ppm");
+
     // ppm.writeFilePPM("output.ppm");
     // ppm.writeFilePGM("output.pgm");
     // ppm.writeFilePBM("output.pbm");

@@ -282,7 +282,7 @@ void PortablePixMapASCII::convert_to_negative()
         }
     }
 }
-void PortablePixMapASCII::enlighten(double a)
+void PortablePixMapASCII::enlighten(double a = 1.5)
 {
     for(unsigned int i = 0; i < this->sizey; i++)
     {
@@ -295,7 +295,7 @@ void PortablePixMapASCII::enlighten(double a)
         }
     }
 }
-void PortablePixMapASCII::darken(double a)
+void PortablePixMapASCII::darken(double a = 1.5)
 {
     for(unsigned int i = 0; i < this->sizey; i++)
     {
@@ -308,7 +308,7 @@ void PortablePixMapASCII::darken(double a)
         }
     }
 }
-void PortablePixMapASCII::contrast(double a)
+void PortablePixMapASCII::contrast(double a = 0.062622429)
 {
     for(unsigned int i = 0; i < this->sizey; i++)
     {
@@ -321,7 +321,7 @@ void PortablePixMapASCII::contrast(double a)
         }
     }
 }
-void PortablePixMapASCII::decontrast(double a)
+void PortablePixMapASCII::decontrast(double a = 100.0)
 {
     for(unsigned int i = 0; i < this->sizey; i++)
     {
