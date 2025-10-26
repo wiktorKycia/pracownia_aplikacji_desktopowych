@@ -171,8 +171,33 @@ void print_list(Node *start)
     //delete temp;//*to nic nie robi, bo delete usuwa obiekt, a temp wskazuje teraz na nullptr
 }
 
+void print_list_simpler(Node *start)
+{
+    Node *temp = start;
+    while(temp != nullptr)
+    {
+        cout << temp->value << " ";
+        temp = temp->next;
+    }
+}
+
 int main()
 {
+    setlocale(LC_ALL, "pl_PL.UTF-8");
+    Node *start = create_list();
+    bool running = true;
+    do
+    {
+        cout << "===== Wybierz opcję =====" << endl;
+        cout << "Dodaj na początek" << endl;
+        cout << "Dodaj na koniec" << endl;
+        cout << "Dodaj po ..." << endl;
+
+        cout << ""
+
+    } while (running);
+    
+    /*
     Node *start = create_list(10);
     Node *new_node = new Node({12, nullptr});
     // cout << "pointer start: " << &start << endl;
@@ -212,6 +237,8 @@ int main()
 
     Node rm3 = remove_after(start, 2); // 14
     cout << endl << rm3.value << endl;
+
+    */
 
     return 0;
 }
