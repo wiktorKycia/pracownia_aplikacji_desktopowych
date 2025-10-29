@@ -394,7 +394,7 @@ void PortablePixMap::writeBinaryFilePGM(string fileName)
     file.close();
 }
 
-void PortablePixMap::writeBinaryFilePGM(string fileName)
+void PortablePixMap::writeBinaryFilePBM(string fileName)
 {
     ofstream file;
 
