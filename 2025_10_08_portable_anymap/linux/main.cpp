@@ -25,8 +25,8 @@ int main()
 
     PortablePixMap ppm;
 
-    ppm.readBitFile("./binary_output.ppm");
-    ppm.writeFilePPM("./output_images/output_from_binary.ppm");
+    // ppm.readBitFile("./binary_output.ppm");
+    // ppm.writeFilePPM("./output_images/output_from_binary.ppm");
 
     // ppm.readFile("input.ppm");
     // ppm.convert_to_negative();
@@ -41,7 +41,7 @@ int main()
     // ppm.writeFilePPM("./output_images/dark.ppm");
 
     // ppm.readFile("input.ppm");
-    // ppm.contrast(0.5);
+    // ppm.contrast(1.0);
     // ppm.writeFilePPM("./output_images/contrast.ppm");
 
     // ppm.readFile("input.ppm");

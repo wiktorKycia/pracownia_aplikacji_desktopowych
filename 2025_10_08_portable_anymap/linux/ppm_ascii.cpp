@@ -61,10 +61,13 @@ class PortablePixMap
         return this->pixels[y][x][color];
     }
     void readFile(string fileName);
-    void readBitFile(string fileName);
+    void readBinaryFile(string fileName);
     void writeFilePPM(string fileName);
     void writeFilePGM(string fileName);
     void writeFilePBM(string fileName);
+    void writeBinaryFilePPM(string fileName);
+    void writeBinaryFilePGM(string fileName);
+    void writeBinaryFilePBM(string fileName);
     void convert_to_negative();
     void enlighten(double a);
     void darken(double a);
@@ -149,7 +152,7 @@ void PortablePixMap::readFile(string fileName)
 
     file.close();
 }
-void PortablePixMap::readBitFile(string fileName)
+void PortablePixMap::readBinaryFile(string fileName)
 {
     ifstream file;
     file.open(fileName, ios::in | ios::binary);
@@ -326,6 +329,37 @@ void PortablePixMap::writeFilePBM(string fileName)
     }
     file.close();
 }
+
+void PortablePixMap::writeBinaryFilePPM(string fileName)
+{
+    ofstream file;
+
+    file.open(fileName, ios::out | ios::trunc | ios::binary);
+
+    if(!file.good())
+    {
+        cout << "Error opening file " << fileName << endl;
+        exit(1);
+    }
+
+    file << "P6" << endl;
+    file << this->sizex << " " << this->sizey << endl;
+    file << "255" << endl;
+
+    for(unsigned int i = 0; i < sizey; i++)
+    {
+        for(unsigned int j = 0; j < sizex; j++)
+        {
+            for(int color = 0; color < this->numberOfColors; color++)
+            {
+                file.write((char *)&this->pixels[i][j][color], sizeof(uint8_t));
+            }
+        }
+    }
+
+    file.close();
+}
+
 void PortablePixMap::convert_to_negative()
 {
     for(unsigned int i = 0; i < this->sizey; i++)
