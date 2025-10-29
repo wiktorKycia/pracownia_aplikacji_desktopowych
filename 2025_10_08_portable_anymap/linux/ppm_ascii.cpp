@@ -360,6 +360,96 @@ void PortablePixMap::writeBinaryFilePPM(string fileName)
     file.close();
 }
 
+
+void PortablePixMap::writeBinaryFilePGM(string fileName)
+{
+    ofstream file;
+
+    file.open(fileName, ios::out | ios::trunc | ios::binary);
+
+    if(!file.good())
+    {
+        cout << "Error opening file " << fileName << endl;
+        exit(1);
+    }
+
+    file << "P5" << endl;
+    file << this->sizex << " " << this->sizey << endl;
+    file << "255" << endl;
+
+    for(unsigned int i = 0; i < sizey; i++)
+    {
+        for(unsigned int j = 0; j < sizex; j++)
+        {
+            int sum = 0;
+            for(int color = 0; color < this->numberOfColors; color++)
+            {
+                sum += static_cast<int>(this->pixels[i][j][color]);
+            }
+            uint8_t avg = (uint8_t)(sum/3);
+            file.write((char *)&avg, sizeof(uint8_t));
+        }
+    }
+
+    file.close();
+}
+
+void PortablePixMap::writeBinaryFilePGM(string fileName)
+{
+    ofstream file;
+
+    file.open(fileName, ios::out | ios::trunc | ios::binary);
+
+    if(!file.good())
+    {
+        cout << "Error opening file " << fileName << endl;
+        exit(1);
+    }
+
+    file << "P4" << endl;
+    file << this->sizex << " " << this->sizey << endl;
+
+    // basic quantization
+    unsigned long long sum = 0;
+    for(unsigned int i = 0; i < sizey; i++)
+    {
+        for(unsigned int j = 0; j < sizex; j++)
+        {
+            for(int color = 0; color < this->numberOfColors; color++)
+            {
+                sum += static_cast<int>(this->pixels[i][j][color]);
+            }
+        }
+    }
+    int avg = (sum)/(sizex*sizey*numberOfColors);
+    cout << avg << endl;
+
+
+    for(unsigned int i = 0; i < sizey; i++)
+    {
+        for(unsigned int j = 0; j < sizex; j++)
+        {
+            int sum = 0;
+            for(int color = 0; color < this->numberOfColors; color++)
+            {
+                sum += static_cast<int>(this->pixels[i][j][color]);
+            }
+            if(sum > avg)
+            {
+                uint8_t a = 0;
+                file.write((char *)&a, sizeof(uint8_t));
+            }
+            else
+            {
+                uint8_t a = 1;
+                file.write((char *)&a, sizeof(uint8_t));
+            }
+        }
+    }
+
+    file.close();
+}
+
 void PortablePixMap::convert_to_negative()
 {
     for(unsigned int i = 0; i < this->sizey; i++)
