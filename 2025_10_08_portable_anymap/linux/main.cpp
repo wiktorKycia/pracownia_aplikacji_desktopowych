@@ -8,10 +8,6 @@
 using namespace std;
 
 
-class PortablePixMap
-{
-};
-
 
 
 class PortableGrayMap{};
@@ -27,7 +23,10 @@ int main()
 
     // cout << static_cast<int>(pixel_functions::enlighten(150));
 
-    PortablePixMapASCII ppm;
+    PortablePixMap ppm;
+
+    ppm.readBitFile("./binary_output.ppm");
+    ppm.writeFilePPM("./output_images/output_from_binary.ppm");
 
     // ppm.readFile("input.ppm");
     // ppm.convert_to_negative();
@@ -41,9 +40,9 @@ int main()
     // ppm.darken(4.0);
     // ppm.writeFilePPM("./output_images/dark.ppm");
 
-    ppm.readFile("input.ppm");
-    ppm.contrast(0.5);
-    ppm.writeFilePPM("./output_images/contrast.ppm");
+    // ppm.readFile("input.ppm");
+    // ppm.contrast(0.5);
+    // ppm.writeFilePPM("./output_images/contrast.ppm");
 
     // ppm.readFile("input.ppm");
     // ppm.decontrast(20.0);

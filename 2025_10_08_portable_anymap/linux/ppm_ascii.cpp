@@ -6,9 +6,9 @@
 using namespace std;
 
 /*
-PPM (P3)
+PPM (P3 and P6)
 */
-class PortablePixMapASCII
+class PortablePixMap
 {
     static const int numberOfColors = {3};
     unsigned int sizex, sizey;
@@ -18,19 +18,19 @@ class PortablePixMapASCII
     
     public:
 
-    PortablePixMapASCII()
+    PortablePixMap()
     {
         sizex = 0;
         sizey = 0;
         pixels = nullptr;
     }
-    PortablePixMapASCII(unsigned int _sizex, unsigned int _sizey)
+    PortablePixMap(unsigned int _sizex, unsigned int _sizey)
     {
         sizex = _sizex;
         sizey = _sizey;
         this->allocate_pixels();
     }
-    PortablePixMapASCII(const PortablePixMapASCII &obj)
+    PortablePixMap(const PortablePixMap &obj)
     {
         sizex = obj.sizex;
         sizey = obj.sizey;
@@ -50,7 +50,7 @@ class PortablePixMapASCII
             }
         }
     }
-    ~PortablePixMapASCII()
+    ~PortablePixMap()
     {
         sizex = 0;
         sizey = 0;
@@ -61,6 +61,7 @@ class PortablePixMapASCII
         return this->pixels[y][x][color];
     }
     void readFile(string fileName);
+    void readBitFile(string fileName);
     void writeFilePPM(string fileName);
     void writeFilePGM(string fileName);
     void writeFilePBM(string fileName);
@@ -71,7 +72,7 @@ class PortablePixMapASCII
     void decontrast(double a);
 };
 
-void PortablePixMapASCII::allocate_pixels()
+void PortablePixMap::allocate_pixels()
 {
     this->pixels = new uint8_t**[this->sizey];
 
@@ -86,7 +87,7 @@ void PortablePixMapASCII::allocate_pixels()
     }
 }
 
-void PortablePixMapASCII::readFile(string fileName)
+void PortablePixMap::readFile(string fileName)
 {
     ifstream file;
     file.open(fileName, ios::in);
@@ -148,7 +149,63 @@ void PortablePixMapASCII::readFile(string fileName)
 
     file.close();
 }
-void PortablePixMapASCII::writeFilePPM(string fileName)
+void PortablePixMap::readBitFile(string fileName)
+{
+    ifstream file;
+    file.open(fileName, ios::in | ios::binary);
+    if(!file.good())
+    {
+        cout << "Error reading file: " << fileName << endl;
+        exit(1);
+    }
+
+    string line;
+
+    getline(file, line);
+
+    if(line != "P6")
+    {
+        cout << "The file is not in a PPM format!" << endl;
+    }
+    getline(file, line);
+
+    if (line[0] == '#') // jeśli ta linia ma komentarz, to przeczytaj następną
+    {
+        getline(file, line);
+    }
+
+    // wczytaj szer i wys
+    int idx_space = line.find(' ');
+    this->sizex = stoi(line.substr(0, idx_space));
+    this->sizey = stoi(line.substr(idx_space+1));
+
+    getline(file, line); // upewnij się, że max color to 255
+
+    if(line != "255")
+    {
+        cout << "Maximum color value does not equal 255" << endl;
+    }
+
+    if(this->pixels == nullptr)
+    {
+        this->allocate_pixels();
+    }
+
+    for(unsigned int i = 0; i < sizey; i++)
+    {
+        for(unsigned int j = 0; j < sizex; j++)
+        {
+            for(int color = 0; color < this->numberOfColors; color++)
+            {
+                file.read((char *)&this->pixels[i][j][color], sizeof(uint8_t));
+            }
+        }
+    }
+
+    file.close();
+}
+
+void PortablePixMap::writeFilePPM(string fileName)
 {
     ofstream file;
     file.open(fileName, ios::out | ios::trunc);
@@ -180,7 +237,7 @@ void PortablePixMapASCII::writeFilePPM(string fileName)
 
     file.close();
 }
-void PortablePixMapASCII::writeFilePGM(string fileName)
+void PortablePixMap::writeFilePGM(string fileName)
 {
     ofstream file;
     file.open(fileName, ios::out | ios::trunc);
@@ -213,7 +270,7 @@ void PortablePixMapASCII::writeFilePGM(string fileName)
 
     file.close();
 }
-void PortablePixMapASCII::writeFilePBM(string fileName)
+void PortablePixMap::writeFilePBM(string fileName)
 {
     ofstream file;
     file.open(fileName, ios::out | ios::trunc);
@@ -269,7 +326,7 @@ void PortablePixMapASCII::writeFilePBM(string fileName)
     }
     file.close();
 }
-void PortablePixMapASCII::convert_to_negative()
+void PortablePixMap::convert_to_negative()
 {
     for(unsigned int i = 0; i < this->sizey; i++)
     {
@@ -282,7 +339,7 @@ void PortablePixMapASCII::convert_to_negative()
         }
     }
 }
-void PortablePixMapASCII::enlighten(double a = 1.5)
+void PortablePixMap::enlighten(double a = 1.5)
 {
     for(unsigned int i = 0; i < this->sizey; i++)
     {
@@ -295,7 +352,7 @@ void PortablePixMapASCII::enlighten(double a = 1.5)
         }
     }
 }
-void PortablePixMapASCII::darken(double a = 1.5)
+void PortablePixMap::darken(double a = 1.5)
 {
     for(unsigned int i = 0; i < this->sizey; i++)
     {
@@ -308,7 +365,7 @@ void PortablePixMapASCII::darken(double a = 1.5)
         }
     }
 }
-void PortablePixMapASCII::contrast(double a = 0.062622429)
+void PortablePixMap::contrast(double a = 0.062622429)
 {
     for(unsigned int i = 0; i < this->sizey; i++)
     {
@@ -321,7 +378,7 @@ void PortablePixMapASCII::contrast(double a = 0.062622429)
         }
     }
 }
-void PortablePixMapASCII::decontrast(double a = 100.0)
+void PortablePixMap::decontrast(double a = 100.0)
 {
     for(unsigned int i = 0; i < this->sizey; i++)
     {

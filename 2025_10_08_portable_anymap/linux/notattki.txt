@@ -1,0 +1,11 @@
+Makefile
+.pro
+
+make - aplikacja do buildowania
+
+
+qmake - aplikacja do budowy projektu w qt
+
+
+Cmake - ogólnie aplikacja do budowania i konfigurowania innych projektów
+bardzo silna maszynka (potrafi zrobić konfiguracje do kilkudzieściu innych IDE)
