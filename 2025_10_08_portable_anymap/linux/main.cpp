@@ -25,7 +25,7 @@ int main()
 
     PortablePixMap ppm;
 
-    ppm.readBinaryFile("./input_binary2.ppm");
+    ppm.readBinaryFile("./input_binary.ppm");
 
     ppm.writeBinaryFilePPM("./output_images/output1ppm.ppm");
     ppm.writeBinaryFilePGM("./output_images/output1pgm.pgm");

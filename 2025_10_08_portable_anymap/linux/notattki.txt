@@ -23,3 +23,12 @@ dodawanie - nakładanie obrazów
 odejmowanie - wykrywanie różnic pomiędzy obrazami
 mnożenie - wycinanie konkrestego kszatłtu
 (biała gwiadza na czarnym tle)
+
+
+
+okno z menu
+plik
+    - otwórz, zapisz (file dialog)
+
+kolory
+    - funkcje punktowe za pomocą sliderów
