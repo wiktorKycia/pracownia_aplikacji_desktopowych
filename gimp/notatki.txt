@@ -47,3 +47,45 @@ obiekt, który ma masę, ale nie ma wymiarów (jest punktem w przestrzeni)
 
 rzut piłką
 symulacja ruchu cząsteczek w polu magnetycznym
+
+========================
+Makefile
+.pro
+
+make - aplikacja do buildowania
+
+
+qmake - aplikacja do budowy projektu w qt
+
+
+Cmake - ogólnie aplikacja do budowania i konfigurowania innych projektów
+bardzo silna maszynka (potrafi zrobić konfiguracje do kilkudzieściu innych IDE)
+
+
+
+
+==================
+
+gimp zadanie 2 (lab_qt_3)
+
+nasycenie - wykorzystać hsv
+
+dodawanie - nakładanie obrazów
+odejmowanie - wykrywanie różnic pomiędzy obrazami
+mnożenie - wycinanie konkrestego kszatłtu
+(biała gwiadza na czarnym tle)
+
+
+
+okno z menu
+plik
+    - otwórz, zapisz (file dialog)
+
+kolory
+    - funkcje punktowe za pomocą sliderów
+    
+    
+    
+    
+    
+
