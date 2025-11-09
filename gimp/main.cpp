@@ -1,7 +1,7 @@
 #include<iostream>
 #include<fstream>
 #include<string>
-#include "ppm_ascii.cpp"
+#include "ppm.cpp"
 #include "pgm_ascii.cpp"
 #include "functions.hpp"
 
@@ -25,7 +25,7 @@ int main()
 
     PortablePixMap ppm;
 
-    ppm.readBinaryFile("./input_binary.ppm");
+    ppm.readBinaryFile("./input_images/input_binary.ppm");
 
     ppm.writeBinaryFilePPM("./output_images/output1ppm.ppm");
     ppm.writeBinaryFilePGM("./output_images/output1pgm.pgm");
@@ -35,23 +35,23 @@ int main()
     // ppm.readBitFile("./binary_output.ppm");
     // ppm.writeFilePPM("./output_images/output_from_binary.ppm");
 
-    // ppm.readFile("input.ppm");
+    // ppm.readAsciiFile("input.ppm");
     // ppm.convert_to_negative();
     // ppm.writeFilePPM("./output_images/negative.ppm");
 
-    // ppm.readFile("input.ppm");
+    // ppm.readAsciiFile("input.ppm");
     // ppm.enlighten(4.0);
     // ppm.writeFilePPM("./output_images/light.ppm");
 
-    // ppm.readFile("input.ppm");
+    // ppm.readAsciiFile("input.ppm");
     // ppm.darken(4.0);
     // ppm.writeFilePPM("./output_images/dark.ppm");
 
-    // ppm.readFile("input.ppm");
+    // ppm.readAsciiFile("input.ppm");
     // ppm.contrast(1.0);
     // ppm.writeFilePPM("./output_images/contrast.ppm");
 
-    // ppm.readFile("input.ppm");
+    // ppm.readAsciiFile("input.ppm");
     // ppm.decontrast(20.0);
     // ppm.writeFilePPM("./output_images/decontrast.ppm");
 
@@ -60,7 +60,7 @@ int main()
     // ppm.writeFilePBM("output.pbm");
 
     // PortableGrayMapASCII pgm;
-    // pgm.readFile("output.pgm");
+    // pgm.readAsciiFile("output.pgm");
     // pgm.writeFilePPM("output-from-pgm.ppm");
     // pgm.writeFilePGM("pgm-to-pgm.pgm");
     // pgm.writeFilePBM("pgm-to-pbm.pbm");

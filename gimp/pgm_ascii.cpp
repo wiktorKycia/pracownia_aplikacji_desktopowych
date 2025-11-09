@@ -53,7 +53,7 @@ class PortableGrayMapASCII
     {
         return this->pixels[y][x];
     }
-    void readFile(string fileName);
+    void readAsciiFile(string fileName);
     void writeFilePPM(string fileName);
     void writeFilePGM(string fileName);
     void writeFilePBM(string fileName);
@@ -72,7 +72,7 @@ void PortableGrayMapASCII::allocate_pixels()
         }
     }
 }
-void PortableGrayMapASCII::readFile(string fileName)
+void PortableGrayMapASCII::readAsciiFile(string fileName)
 {
     ifstream file;
     file.open(fileName, ios::in);

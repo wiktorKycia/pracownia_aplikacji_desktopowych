@@ -60,7 +60,7 @@ class PortablePixMap
     {
         return this->pixels[y][x][color];
     }
-    void readFile(string fileName);
+    void readAsciiFile(string fileName);
     void readBinaryFile(string fileName);
     void writeFilePPM(string fileName);
     void writeFilePGM(string fileName);
@@ -90,7 +90,7 @@ void PortablePixMap::allocate_pixels()
     }
 }
 
-void PortablePixMap::readFile(string fileName)
+void PortablePixMap::readAsciiFile(string fileName)
 {
     ifstream file;
     file.open(fileName, ios::in);
@@ -411,9 +411,9 @@ void PortablePixMap::writeBinaryFilePBM(string fileName)
 
     // basic quantization
     unsigned long long sum = 0;
-    for(unsigned int i = 0; i < sizey; i++)
+    for(unsigned int i = 0; i < this->sizey; i++)
     {
-        for(unsigned int j = 0; j < sizex; j++)
+        for(unsigned int j = 0; j < this->sizex; j++)
         {
             for(int color = 0; color < this->numberOfColors; color++)
             {
@@ -421,38 +421,40 @@ void PortablePixMap::writeBinaryFilePBM(string fileName)
             }
         }
     }
-    int avg = (sum)/(sizex*sizey*numberOfColors);
+    int avg = (sum)/(this->sizex*this->sizey*this->numberOfColors);
     cout << avg << endl;
 
     // int n = 0;
     char a = 0b00000000;
     int licznik = 0;
-    for(unsigned int i = 0; i < sizey; i++)
+    for(unsigned int i = 0; i < this->sizey; i++)
     {
-        for(unsigned int j = 0; j < sizex; j++)
+        for(unsigned int j = 0; j < this->sizex; j++)
         {
             int sum = 0;
             for(int color = 0; color < this->numberOfColors; color++)
             {
                 sum += static_cast<int>(this->pixels[i][j][color]);
             }
-            if(sum > avg)
+            if((sum/3) > avg)
             {
-                a |= 1 << licznik; // ustawiamy bit licznikowy na 1
+                a |= (1 << licznik); // ustawiamy bit licznikowy na 1
                 licznik++;
                 if (licznik == 8) 
                 {
                     licznik = 0;
+                    a = 0b00000000;
                     file.write((char *)&a, sizeof(uint8_t));
                 }
             }
             else
             {
-                a |= 0 << licznik; // ustawiamy bit licznikowy na 0
+                a |= (0 << licznik); // ustawiamy bit licznikowy na 0
                 licznik++;
                 if (licznik == 8) 
                 {
                     licznik = 0;
+                    a = 0b00000000;
                     file.write((char *)&a, sizeof(uint8_t));
                 }
             }
