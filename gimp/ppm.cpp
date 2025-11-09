@@ -393,7 +393,14 @@ void PortablePixMap::writeBinaryFilePGM(string fileName)
 
     file.close();
 }
-
+void print_bit_representation(char& a)
+{
+    for(int i = 7; i >= 0; i--)
+    {
+        cout << (int)((a & (1 << i)) >> i);
+    }
+    cout << endl;
+}
 void PortablePixMap::writeBinaryFilePBM(string fileName)
 {
     ofstream file;
@@ -422,6 +429,7 @@ void PortablePixMap::writeBinaryFilePBM(string fileName)
         }
     }
     int avg = (sum)/(this->sizex*this->sizey*this->numberOfColors);
+    // avg = 125;
     cout << avg << endl;
 
     // int n = 0;
@@ -436,26 +444,28 @@ void PortablePixMap::writeBinaryFilePBM(string fileName)
             {
                 sum += static_cast<int>(this->pixels[i][j][color]);
             }
-            if((sum/3) > avg)
+            if((sum/3) < avg)
             {
                 a |= (1 << licznik); // ustawiamy bit licznikowy na 1
                 licznik++;
                 if (licznik == 8) 
                 {
                     licznik = 0;
-                    a = 0b00000000;
+                    print_bit_representation(a);
                     file.write((char *)&a, sizeof(uint8_t));
+                    a = 0b00000000;
                 }
             }
             else
             {
-                a |= (0 << licznik); // ustawiamy bit licznikowy na 0
+                a &= ~(1 << licznik); // ustawiamy bit licznikowy na 0
                 licznik++;
                 if (licznik == 8) 
                 {
                     licznik = 0;
-                    a = 0b00000000;
+                    print_bit_representation(a);
                     file.write((char *)&a, sizeof(uint8_t));
+                    a = 0b00000000;
                 }
             }
         }
