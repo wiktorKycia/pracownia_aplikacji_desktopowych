@@ -444,26 +444,26 @@ void PortablePixMap::writeBinaryFilePBM(string fileName)
             {
                 sum += static_cast<int>(this->pixels[i][j][color]);
             }
-            if((sum/3) < avg)
+            if((sum/3) < avg) // jaśniejsze
             {
-                a |= (1 << licznik); // ustawiamy bit licznikowy na 1
+                a |= (1 << (7 - licznik)); // ustawiamy bit licznikowy na 1
                 licznik++;
                 if (licznik == 8) 
                 {
                     licznik = 0;
-                    print_bit_representation(a);
+                    // print_bit_representation(a);
                     file.write((char *)&a, sizeof(uint8_t));
                     a = 0b00000000;
                 }
             }
-            else
+            else // ciemniejsze
             {
-                a &= ~(1 << licznik); // ustawiamy bit licznikowy na 0
+                a &= ~(1 << (7 - licznik)); // ustawiamy bit licznikowy na 0
                 licznik++;
                 if (licznik == 8) 
                 {
                     licznik = 0;
-                    print_bit_representation(a);
+                    // print_bit_representation(a);
                     file.write((char *)&a, sizeof(uint8_t));
                     a = 0b00000000;
                 }
