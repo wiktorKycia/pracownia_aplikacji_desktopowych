@@ -1,7 +1,7 @@
-#include<stdio.h>
+#include "fancy_print.h"
 
 int main()
 {
-    printf("Hello world!");
+    fancy_print("Hello world!");
     return 0;
 }
