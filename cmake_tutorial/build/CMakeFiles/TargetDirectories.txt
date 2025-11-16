@@ -1,0 +1,3 @@
+/home/wiktor/school/Technikum/Aplikacje desktopowe/zadania_z_lekcji/cmake_tutorial/build/CMakeFiles/main.dir
+/home/wiktor/school/Technikum/Aplikacje desktopowe/zadania_z_lekcji/cmake_tutorial/build/CMakeFiles/edit_cache.dir
+/home/wiktor/school/Technikum/Aplikacje desktopowe/zadania_z_lekcji/cmake_tutorial/build/CMakeFiles/rebuild_cache.dir
