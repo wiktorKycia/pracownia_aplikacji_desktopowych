@@ -1,0 +1,12 @@
+gcc -v          # wyświetla wszystkie programy użyte przez kompilator
+
+gcc -E          # tylko preprocessing
+gcc -S          # tylko kompilacja, bez assembly, ani linkowania
+gcc -c          # kompilacja i assembly
+gcc -pie        # linkowanie do jednego executable
+
+gcc -o          # output file
+
+gcc -shared     # stwarza wspólną bibliotekę
+gcc -x          # pozwala na wprowadzenie języka plików inputowych (możliwe to: c c++ assembler none)
+                # przy none gcc zgaduje na podstawie rozszerzenia pliku

@@ -1,85 +1,78 @@
 #include<iostream>
 #include<fstream>
 #include<string>
+#include<cstdint>
 using namespace std;
 
 /*
-PPM (P3)
+PGM (P2)
 */
-class PortablePixMapASCII
+class PortableGrayMapASCII
 {
-    static const int numberOfColors = {3};
     unsigned int sizex, sizey;
-    u_int8_t ***pixels;
-
+    uint8_t **pixels;
     void allocate_pixels();
-    
+
     public:
 
-    PortablePixMapASCII()
+    PortableGrayMapASCII()
     {
         sizex = 0;
         sizey = 0;
         pixels = nullptr;
     }
-    PortablePixMapASCII(unsigned int _sizex, unsigned int _sizey)
+    PortableGrayMapASCII(unsigned int _sizex, unsigned int _sizey)
     {
         sizex = _sizex;
         sizey = _sizey;
         this->allocate_pixels();
     }
-    PortablePixMapASCII(const PortablePixMapASCII &obj)
+    PortableGrayMapASCII(const PortableGrayMapASCII &obj)
     {
         sizex = obj.sizex;
         sizey = obj.sizey;
-        pixels = new u_int8_t**[sizey];
+        pixels = new uint8_t*[sizey];
 
         for(unsigned int i = 0; i < sizey; i++)
         {
-            pixels[i] = new u_int8_t*[sizex];
+            pixels[i] = new uint8_t[sizex];
 
             for(unsigned int j = 0; j < sizex; j++)
             {
-                pixels[i][j] = new u_int8_t[numberOfColors]{
-                    obj.getPixel(i, j, 0),
-                    obj.getPixel(i, j, 1),
-                    obj.getPixel(i, j, 2)
-                };
+                pixels[i][j] = obj.getPixel(i, j);
             }
         }
     }
-    ~PortablePixMapASCII()
+    ~PortableGrayMapASCII()
     {
         sizex = 0;
         sizey = 0;
         delete pixels;
     }
-    u_int8_t getPixel(unsigned int x, unsigned int y, unsigned int color) const
+    uint8_t getPixel(unsigned int x, unsigned int y) const
     {
-        return this->pixels[y][x][color];
+        return this->pixels[y][x];
     }
-    void readFile(string fileName);
+    void readAsciiFile(string fileName);
     void writeFilePPM(string fileName);
     void writeFilePGM(string fileName);
     void writeFilePBM(string fileName);
 };
-
-void PortablePixMapASCII::allocate_pixels()
+void PortableGrayMapASCII::allocate_pixels()
 {
-    this->pixels = new u_int8_t**[this->sizey];
+    this->pixels = new uint8_t*[sizey];
 
-    for(unsigned int i = 0; i < this->sizey; i++)
+    for(unsigned int i = 0; i < sizey; i++)
     {
-        this->pixels[i] = new u_int8_t*[this->sizex];
+        this->pixels[i] = new uint8_t[sizex];
 
-        for(unsigned int j = 0; j < this->sizex; j++)
+        for(unsigned int j = 0; j < sizex; j++)
         {
-            this->pixels[i][j] = new u_int8_t[numberOfColors]{0,0,0};
+            this->pixels[i][j] = {0};
         }
     }
 }
-
-void PortablePixMapASCII::readFile(string fileName)
+void PortableGrayMapASCII::readAsciiFile(string fileName)
 {
     ifstream file;
     file.open(fileName, ios::in);
@@ -94,9 +87,9 @@ void PortablePixMapASCII::readFile(string fileName)
 
     getline(file, line); // pierwsza linia
     
-    if(line != "P3")
+    if(line != "P2")
     {
-        cout << "The file is not a ppm format!" << endl;
+        cout << "The file is not a pgm format!" << endl;
     }
     getline(file, line); // linia z komentarzem
 
@@ -108,9 +101,6 @@ void PortablePixMapASCII::readFile(string fileName)
     int idx_space = line.find(' ');
     this->sizex = stoi(line.substr(0, idx_space));
     this->sizey = stoi(line.substr(idx_space+1));
-    // cout << "sizex = " << this->sizex << endl << "sizey = " << this->sizey << endl;
-    // cout << "Type of sizex: " << typeid(this->sizex).name() << endl; // prints: j
-    // cout << "Type of sizey: " << typeid(this->sizey).name() << endl; // prints: j
 
     getline(file, line); // upewnij się, że max color to 255
 
@@ -128,20 +118,16 @@ void PortablePixMapASCII::readFile(string fileName)
     {
         for(unsigned int j = 0; j < sizex; j++)
         {
-            for(int color = 0; color < this->numberOfColors; color++)
-            {
-                // cout << i << ' '<< j << ' ' << color<< endl;
-                string value;
-                file >> value;
-                this->pixels[i][j][color] = stoi(value);
-                // cout << value << "\t" << stoi(value)<< "\t" << this->pixels[i][j][color] << endl;
-            }
+            string value;
+            file >> value;
+            this->pixels[i][j] = stoi(value);
         }
     }
 
     file.close();
 }
-void PortablePixMapASCII::writeFilePPM(string fileName)
+
+void PortableGrayMapASCII::writeFilePPM(string fileName)
 {
     ofstream file;
     file.open(fileName, ios::out | ios::trunc);
@@ -163,17 +149,17 @@ void PortablePixMapASCII::writeFilePPM(string fileName)
     {
         for(unsigned int j = 0; j < sizex; j++)
         {
-            for(int color = 0; color < this->numberOfColors; color++)
+            for(int color = 0; color < 3; color++)
             {
-                // cout << static_cast<int>(this->pixels[i][j][color]) << endl;
-                file << static_cast<int>(this->pixels[i][j][color]) << endl;
+                file << static_cast<int>(this->pixels[i][j]) << endl;
             }
         }
     }
 
     file.close();
 }
-void PortablePixMapASCII::writeFilePGM(string fileName)
+
+void PortableGrayMapASCII::writeFilePGM(string fileName)
 {
     ofstream file;
     file.open(fileName, ios::out | ios::trunc);
@@ -195,18 +181,14 @@ void PortablePixMapASCII::writeFilePGM(string fileName)
     {
         for(unsigned int j = 0; j < sizex; j++)
         {
-            int sum = 0;
-            for(int color = 0; color < this->numberOfColors; color++)
-            {
-                sum += static_cast<int>(this->pixels[i][j][color]);
-            }
-            file << (int)(sum/3) << endl;
+            file << static_cast<int>(this->pixels[i][j]) << endl;
         }
     }
 
     file.close();
 }
-void PortablePixMapASCII::writeFilePBM(string fileName)
+
+void PortableGrayMapASCII::writeFilePBM(string fileName)
 {
     ofstream file;
     file.open(fileName, ios::out | ios::trunc);
@@ -230,14 +212,10 @@ void PortablePixMapASCII::writeFilePBM(string fileName)
     {
         for(unsigned int j = 0; j < sizex; j++)
         {
-            for(int color = 0; color < this->numberOfColors; color++)
-            {
-                sum += static_cast<int>(this->pixels[i][j][color]);
-            }
-            // file << (int)(sum/3) << endl;
+            sum += static_cast<int>(this->pixels[i][j]);
         }
     }
-    int avg = (sum)/(sizex*sizey*numberOfColors);
+    int avg = (sum)/(sizex*sizey);
     cout << avg << endl;
 
 
@@ -245,12 +223,7 @@ void PortablePixMapASCII::writeFilePBM(string fileName)
     {
         for(unsigned int j = 0; j < sizex; j++)
         {
-            int sum_local = 0;
-            for(int color = 0; color < this->numberOfColors; color++)
-            {
-                sum_local += static_cast<int>(this->pixels[i][j][color]);
-            }
-            if (sum_local > avg)
+            if (static_cast<int>(this->pixels[i][j]) > avg)
             {
                 file << 0 << endl;
             }
